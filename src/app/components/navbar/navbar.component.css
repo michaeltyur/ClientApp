@@ -6,6 +6,7 @@
         font-size: 15px;
         padding-bottom: 2px;
         padding-top: 2px;
+        background-color: white;
     }
     .user-name{
         visibility: collapse;
@@ -19,6 +20,7 @@
     font-size: 23px;
     padding-bottom: 2px;
     padding-top: 2px;
+    background-color: whitesmoke;
 }
 .user-name{
     color: blue;

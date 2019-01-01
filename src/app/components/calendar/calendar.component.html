@@ -152,13 +152,13 @@
               (change)="refresh.next()">
           </td>
           <td>
-            <!-- [altInput]="true" -->
-            <!-- [convertModelValue]="true" -->
-            <!-- [enableTime]="true" -->
             <input
-              class="form-control"
-              type="text"
-              mwlFlatpickr
+            class="form-control"
+            type="text"
+            mwlFlatpickr
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
               [(ngModel)]="event.start"
               (ngModelChange)="refresh.next()"
               dateFormat="Y-m-dTH:i"
@@ -166,13 +166,13 @@
               placeholder="Not set">
           </td>
           <td>
-            <!-- [altInput]="true"
-            [convertModelValue]="true"
-            [enableTime]="true" -->
             <input
-              class="form-control"
-              type="text"
-              mwlFlatpickr
+            class="form-control"
+            type="text"
+            mwlFlatpickr
+            [altInput]="true"
+            [convertModelValue]="true"
+            [enableTime]="true"
               [(ngModel)]="event.end"
               (ngModelChange)="refresh.next()"
               dateFormat="Y-m-dTH:i"
