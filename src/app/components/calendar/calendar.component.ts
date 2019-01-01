@@ -121,9 +121,11 @@ export class CalendarComponent {
   //   }
   // ];
 
-  //activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean ;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal) {
+    this.activeDayIsOpen=false;
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
