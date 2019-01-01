@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import {AccordionModule} from 'primeng/accordion';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -18,15 +20,16 @@ import { AppComponent } from './app.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { PricingComponent } from './pricing/pricing.component';
-import { GalleryComponent } from './gallery/gallery.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { MessageComponent } from './message/message.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { PricingComponent } from './components/pricing/pricing.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { MessageComponent } from './components/message/message.component';
+import { UperFirstLetterPipe } from './pipes/uper-first-letter.pipe';
 
 @NgModule({
   declarations: [
@@ -39,15 +42,16 @@ import { MessageComponent } from './message/message.component';
     GalleryComponent,
     RegistrationComponent,
     CalendarComponent,
-    MessageComponent
+    MessageComponent,
+    UperFirstLetterPipe
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -57,7 +61,10 @@ import { MessageComponent } from './message/message.component';
     AngularFireAuthModule,
     AngularFireStorageModule,
     ReactiveFormsModule,
-    FormsModule 
+    FormsModule ,
+    AccordionModule,
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

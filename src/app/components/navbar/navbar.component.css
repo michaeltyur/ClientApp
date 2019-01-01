@@ -1,0 +1,25 @@
+@media only screen and (max-width: 600px) {
+    .btn{
+        border-bottom-width: 3px;
+        border-right-width: 3px;
+        font-family: Magneto;
+        font-size: 15px;
+        padding-bottom: 2px;
+        padding-top: 2px;
+    }
+    .user-name{
+        visibility: collapse;
+        position: absolute;
+    }
+  }
+.btn{
+    border-bottom-width: 3px;
+    border-right-width: 3px;
+    font-family: Magneto;
+    font-size: 23px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+.user-name{
+    color: blue;
+}

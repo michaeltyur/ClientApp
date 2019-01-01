@@ -1,0 +1,65 @@
+
+<div class="container mt-3">
+    <div class="row  justify-content-center">
+      <div class="col-4 jumbotron">
+         <form>
+          <h4 class="pb-2">Sigh in</h4>
+
+          <!-- Email Address -->
+          <div class="form-group">
+              <label for="emailInput">Email address</label>
+              <span class="validation-alert alert-text" *ngIf="email.errors?.required">
+                    is required
+             </span>
+             <span class="validation-alert alert-text" *ngIf="email.errors?.valid">
+                    is not valid
+               </span>
+             <input [formControl]="email"
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Enter email"   
+                    id="emailInput"              
+                    #emailInput>
+         </div>
+         <!--End Email Address -->
+
+               <!-- Password -->
+               <div class="form-group">                                  
+                     <label for="passwordInput">Password</label>                                   
+                       <span class="validation-alert alert-text" *ngIf="password.errors?.required">
+                     is required
+                  </span>
+                  <span class="validation-alert alert-text" *ngIf="password.errors?.minlength">
+                       must be greater than {{passwordMinLength-1}} 
+                  </span>
+                  <span class="validation-alert alert-text" *ngIf="password.errors?.maxlength">
+                       must be less than {{passwordMaxLength-1}}
+                  </span>                                                    
+                
+                  <input [formControl]="password" 
+                         type="password" 
+                         class="form-control" 
+                         placeholder="Password"
+                         id="passwordInput"                  
+                         #passwordInput>
+                </div>
+                 <!--End Password -->
+
+          <div class="row">
+            <div class="col">
+              <button type="button" 
+                      class="btn btn-primary btn-block"
+                      id="login-button"
+                      (click)="login()">Log in</button>            
+            </div>
+            <div class="col">
+               <button type="button" 
+                       class="btn btn-primary btn-block" 
+                       routerLink="/app-registration">Registration</button>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>  
+</div>

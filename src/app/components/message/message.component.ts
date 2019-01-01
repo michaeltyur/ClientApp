@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from '../services/message.service';
-import { Alert } from '../models/alert';
+import { MessageService } from '../../services/message.service';
+import { Alert } from '../../models/alert';
 import { interval } from 'rxjs';
 
 @Component({
