@@ -159,7 +159,7 @@ export class CalendarComponent {
 
   addEvent(): void {
     this.events.push({
-      title: 'New event',
+      title: '',
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
