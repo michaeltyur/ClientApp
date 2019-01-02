@@ -6,19 +6,46 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="container">
           <div class="row">
-          <button class="col btn btn-outline-primary" routerLink="/app-home" routerLinkActive="active">Home</button>
-          <button class="col btn btn-outline-secondary"  routerLink="/app-calendar" routerLinkActive="active">Calendar</button>
-          <button class="col btn btn-outline-warning"  routerLink="/app-pricing" routerLinkActive="active">Pricing</button>
-          <button class="col btn btn-outline-info"  routerLink="/app-gallery" routerLinkActive="active">Gallery</button>
+          <button class="col btn btn-outline-primary" 
+                  routerLink="/home" 
+                  routerLinkActive="active"
+                  appButtonHover>Home</button>
+          <button class="col btn btn-outline-secondary"  
+                  routerLink="/calendar" 
+                  routerLinkActive="active"
+                  appButtonHover>Calendar</button>
+          <button class="col btn btn-outline-warning"  
+                  routerLink="/pricing" 
+                  routerLinkActive="active"
+                  appButtonHover>Pricing</button>
+          <button class="col btn btn-outline-info"  
+                  routerLink="/gallery" 
+                  routerLinkActive="active"
+                  appButtonHover>Gallery</button>
+                  <button class="col btn btn-outline-success" 
+                       routerLink="/user" 
+                       routerLinkActive="active"
+                       appButtonHover
+                       *ngIf="currentUser?.admin">Add Client</button>
+                   <button class="col btn btn-outline-warning" 
+                       routerLink="/users" 
+                       routerLinkActive="active"
+                       appButtonHover
+                       *ngIf="currentUser?.admin">All Clients</button>
           <button class="col btn btn-outline-success" 
-                routerLink="/app-login" 
+                routerLink="/login" 
                 routerLinkActive="active"
+                appButtonHover
                 *ngIf="!currentUser">Login</button>
-          <button class="col btn btn-outline-danger" 
-                type="button"
-                *ngIf="currentUser"
-                (click)="logout()"><span class="user-name">Hi, {{currentUser.firstName | capitalizeFirstLetter}}</span> log out</button>
-          </div>
+                <button class="col btn btn-outline-danger" 
+                      type="button"
+                      *ngIf="currentUser"
+                      appButtonHover
+                      (click)="logout()"><span class="user-name">Hi, {{currentUser.firstName | capitalizeFirstLetter}}</span> log out</button>
+                </div>
+                
+                
+         
         </div>
         
       

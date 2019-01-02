@@ -31,6 +31,9 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MessageComponent } from './components/message/message.component';
 import { UperFirstLetterPipe } from './pipes/uper-first-letter.pipe';
+import { UserComponent } from './admin-components/user/user.component';
+import { UsersComponent } from './admin-components/users/users.component';
+import { ButtonHoverDirective } from './directives/button-hover.directive';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { UperFirstLetterPipe } from './pipes/uper-first-letter.pipe';
     RegistrationComponent,
     CalendarComponent,
     MessageComponent,
-    UperFirstLetterPipe
+    UperFirstLetterPipe,
+    UserComponent,
+    UsersComponent,
+    ButtonHoverDirective
   ],
   imports: [
     BrowserModule,

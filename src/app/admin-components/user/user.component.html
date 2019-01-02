@@ -2,7 +2,8 @@
     <div class="row justify-content-center">
       <div class="col-4 jumbotron">
          <form [formGroup]="userForm">
-          <h4 class="pb-2">Sigh in</h4>
+          <h4 class="pb-2 form-title" *ngIf="!client">Add New Client</h4>
+          <h4 class="pb-2 form-title" *ngIf="client">Update Client</h4>
           <!-- First Name -->
           <div class="form-group">
             <label for="firstNameInput">First Name</label>
@@ -14,7 +15,7 @@
                 must be greater than {{nameMinLength-1}}
             </span>
             <span class="validation-alert alert-text" *ngIf="firstName.errors?.maxlength">
-               must be less than {{nameMaxLength-1}}
+                must be less than {{nameMaxLength-1}}
             </span>
               <input [formControl]="firstName"
                      type="text" 
@@ -84,7 +85,7 @@
                 is not valid
             </span>
           <input [formControl]="email"
-                 type="text" 
+                 type="email" 
                  class="form-control" 
                  placeholder="Enter email"   
                  id="emailInput"              
@@ -92,32 +93,12 @@
       </div>
       <!--End Email Address -->
 
-          <!-- Password -->
-          <div class="form-group">
-            <label for="passwordInput">Password</label>
-            <span class="validation-alert alert-text" *ngIf="password.errors?.required">
-               is required
-            </span>
-            <span class="validation-alert alert-text" *ngIf="password.errors?.minlength">
-               must be greater than {{passwordMinValue-1}}
-            </span>
-            <span class="validation-alert alert-text" *ngIf="password.errors?.maxlength">
-                must be less than {{passwordMaxValue-1}}
-            </span> 
-            <input [formControl]="password" 
-                   type="password" 
-                   class="form-control" 
-                   placeholder="Password"
-                   id="passwordInput"                  
-                   #passwordInput>
-          </div>
-           <!--End Password -->
-
           <div class="row">
             <div class="col">
                <button type="submit" 
                        class="btn btn-primary btn-block form-button"
-                       (click)="registration()">Registration</button>
+                       appButtonHover
+                       (click)="addClient()">Add</button>
             </div>
           </div>
           

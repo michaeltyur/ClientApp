@@ -27,10 +27,16 @@ export class AuthenticationService {
       this.userListEmitter$=new EventEmitter();
       this.currentUserEmitter$=new EventEmitter();
    }
+   isAdmin():boolean{
+     return this.currentUser && this.currentUser.admin ? true : false;
 
+   }
+  getCurrentUser():User{
+   return this.currentUser;
+  }
    login(email:string,password:string):void{
 
-    this.userService.getUser(email).subscribe(user=>
+    this.userService.getUser(email).then(user=>
       {      
         if (user) {
           if (user.password==password) 
@@ -53,5 +59,6 @@ export class AuthenticationService {
      this.msgService.sendMessage("alert-warning",`user ${this.currentUser.firstName} is exited`);
      this.currentUser=undefined;
      this.currentUserEmitter$.emit(this.currentUser);
+     this.router.navigate(['home']);
    }
 }

@@ -6,7 +6,7 @@ import { passwordMinLength,passwordMaxLength} from '../../consts/validation.cons
 
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.userForm=this.fb.group({
-      email:    ['',   Validators.required],
+      email:    ['',  [ Validators.required,
+                        Validators.email]],
       password: ['', [ Validators.required, 
                        Validators.minLength(passwordMinLength),
                        Validators.maxLength(passwordMaxLength)]],

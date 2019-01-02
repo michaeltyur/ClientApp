@@ -1,10 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 @import '../node_modules/flatpickr/dist/flatpickr.css';
-
+html,body{
+     height: 100%;
+     margin: 0;
+}
+body{
+   
+    background-image: url('./assets/body.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
 .jumbotron{
     margin-top: 70px !important;
 }
+.form-container{
+    margin-bottom: 30px !important;
+}
+
 .validation-alert{
     float: right;
     color: red;
@@ -13,3 +27,29 @@
 .process{
     color: blue;
 }
+.button-hovered{
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: 0.5s all;
+    z-index: 100;
+    border-radius: 5px;
+}
+label{
+    font-family: Stencil;
+    color: rgb(7, 6, 88);
+}
+.form-title{
+    font-family: Magneto;
+    font-size: 30px;
+}
+.btn{
+    font-family: Magneto;
+}
+
+.form-button{
+    margin-top: 40px;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    font-size: 23px;
+}
+

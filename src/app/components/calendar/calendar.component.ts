@@ -24,6 +24,9 @@ import {
   CalendarView
 } from 'angular-calendar';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 const colors: any = {
   red: {
@@ -41,12 +44,14 @@ const colors: any = {
 };
 
 @Component({
-  selector: 'app-calendar',
+  selector: 'calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent {
+
+  currentUser:User;
 
   @ViewChild('modalContent')
   modalContent: TemplateRef<any>;
@@ -123,8 +128,10 @@ export class CalendarComponent {
 
   activeDayIsOpen: boolean ;
 
-  constructor(private modal: NgbModal) {
+  constructor(private modal: NgbModal,private authService:AuthenticationService) {
     this.activeDayIsOpen=false;
+    this.currentUser=authService.getCurrentUser();
+    authService.currentUserEmitter$.subscribe(res=>this.currentUser=res);
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

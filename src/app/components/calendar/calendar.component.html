@@ -105,9 +105,8 @@
       </mwl-calendar-day-view>
     </div>
     
-    <br><br><br>
-    
-    <h3>
+<div class="admin-calendar-panel mt-4" *ngIf="currentUser?.admin">
+    <h3 style="font-family: Magneto;">
       Edit events
       <button
         class="btn btn-primary float-right"
@@ -191,6 +190,9 @@
       </tbody>
     
     </table>
+</div>
+    
+  
     
   </div>
 </div>

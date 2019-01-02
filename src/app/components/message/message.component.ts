@@ -4,7 +4,7 @@ import { Alert } from '../../models/alert';
 import { interval } from 'rxjs';
 
 @Component({
-  selector: 'app-message',
+  selector: 'message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })

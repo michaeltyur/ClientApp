@@ -10,21 +10,25 @@ import { nameMinLength,
 import { FormGroup,Validators,FormBuilder,FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: 'user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class UserComponent implements OnInit {
 
+  client:User;
   userForm : FormGroup;
   nameMinLength:number;
   nameMaxLength:number;
   phoneMinLength:number;
   phoneMaxLength:number;
 
-  constructor(private userService:UserService,private fb: FormBuilder) { 
+
+  constructor(private fb: FormBuilder,private userService:UserService) { 
     this.nameMinLength=nameMinLength;
     this.nameMaxLength=nameMaxLength;
+    this.phoneMinLength=phoneMinLength;
+    this.phoneMaxLength=phoneMaxLength;
   }
 
   ngOnInit() {
@@ -35,16 +39,13 @@ export class RegistrationComponent implements OnInit {
       lastName: ['', [Validators.required,
                       Validators.minLength(nameMinLength),
                       Validators.maxLength(nameMaxLength)]],
-      email:    ['',  Validators.required],
-      password: ['', [Validators.required, 
-                      Validators.minLength(passwordMinLength),
-                      Validators.maxLength(passwordMaxLength)]],
+      email:    ['',  [ Validators.required,
+                        Validators.email]],
       phone:    ['', [Validators.required, 
                       Validators.minLength(phoneMinLength),
                       Validators.maxLength(phoneMaxLength)]]
     });
   }
-
   get firstName() {
     return this.userForm.get('firstName');
   }
@@ -54,17 +55,13 @@ get lastName() {
   get email() {
     return this.userForm.get('email');
   }
-get password() {
-    return this.userForm.get('password');
-  }
   get phone() {
     return this.userForm.get('phone');
   }
 
-  registration():void{
-    if(this.userForm.valid)
-    {
+  addClient():void{
+    if (this.userForm.valid) {
       this.userService.addUser(this.userForm.value);
     }
-}
+  }
 }

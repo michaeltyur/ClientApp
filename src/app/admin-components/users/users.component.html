@@ -1,0 +1,8 @@
+<div class="container jumbotron">
+  <h1 class="display-4">All Claents</h1>
+  <ul class="list-group mt-3">
+    <li class="list-group-item active" *ngFor="let user of users | async">
+      <p>{{user.firstName}} {{user.lastName}} email:{{user.email}} phone:{{user.phone}}</p>
+    </li>
+  </ul>
+</div>
