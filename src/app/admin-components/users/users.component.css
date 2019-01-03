@@ -1,0 +1,13 @@
+.jumbotron{
+    background-color: transparent !important;
+}
+.users-labels-panel{
+    padding-bottom: 0px;
+    vertical-align: bottom;
+    font-family: Stencil;
+    color: rgb(7, 6, 88);
+    height: 50px;
+}
+.list-group-item{
+    cursor: pointer;
+}

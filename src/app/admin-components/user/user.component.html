@@ -2,8 +2,8 @@
     <div class="row justify-content-center">
       <div class="col-4 jumbotron">
          <form [formGroup]="userForm">
-          <h4 class="pb-2 form-title" *ngIf="!client">Add New Client</h4>
-          <h4 class="pb-2 form-title" *ngIf="client">Update Client</h4>
+          <h4 class="pb-2 form-title" *ngIf="client.email===''">Add New Client</h4>
+          <h4 class="pb-2 form-title" *ngIf="client.email!==''">Update Client</h4>
           <!-- First Name -->
           <div class="form-group">
             <label for="firstNameInput">First Name</label>
@@ -58,20 +58,41 @@
                 Checking...
             </span>
             <span class="validation-alert alert-text" *ngIf="phone.errors?.phoneExist">
-                Phone number already exists
+                number already exists
             </span>
-            <span class="validation-alert alert-text" *ngIf="phone.errors?.minlength">
-                must be greater than {{phoneMinLength-1}}
+            <span class="validation-alert alert-text" *ngIf="phone.errors?.minlength&&!phone.errors?.phoneasnumber">
+                phone too short
             </span>
             <span class="validation-alert alert-text" *ngIf="phone.errors?.maxlength">
-                must be less than {{phoneMaxLength-1}}
+                phone too long
             </span>
-            <input [formControl]="phone"
-                   type="number" 
-                   class="form-control" 
-                   placeholder="Enter phone number"       
-                   id="phoneInput"         
-                   #phoneInput>
+            <span class="validation-alert alert-text" *ngIf="phone.errors?.phoneasnumber">
+                must to be just a digits
+            </span>
+            <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-outline-secondary dropdown-toggle" 
+                              type="button" 
+                              data-toggle="dropdown" 
+                              aria-haspopup="true" 
+                              aria-expanded="false">{{selectedPrefix}}</button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" 
+                        dropdownMenuItemHover
+                           *ngFor="let prefix of phonePrefixs" (click)="onSelectPrefix(prefix)">
+                            {{prefix}}
+                      </a>
+                      </div>
+                    </div>
+                    <!-- <input type="text" class="form-control" aria-label="Text input with dropdown button"> -->
+                    <input [formControl]="phone"
+                           maxlength="7"                          
+                           type="text" 
+                           class="form-control" 
+                           placeholder="Enter phone number"       
+                           id="phoneInput"         
+                           #phoneInput>
+                  </div>
         </div>
         <!--End Phone Number -->
 
@@ -92,13 +113,32 @@
                  #emailInput>
       </div>
       <!--End Email Address -->
-
+   <!-- Admin -->
+   <div class="form-group">
+    <div class="input-group mb-2 mr-sm-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">Admin</div>
+      </div>
+      <input [formControl]="admin" 
+             type="text" 
+             class="form-control" 
+             id="adminInput" 
+             placeholder="Admin" >
+    </div>
+  </div>
+  <!--End Admin -->
           <div class="row">
             <div class="col">
                <button type="submit" 
                        class="btn btn-primary btn-block form-button"
                        appButtonHover
-                       (click)="addClient()">Add</button>
+                       (click)="addClient()"
+                       *ngIf="client.email===''">Add</button>
+                <button type="submit" 
+                       class="btn btn-primary btn-block form-button"
+                       appButtonHover
+                       *ngIf="client.email!==''"
+                       (click)="updateClient()">Update</button>
             </div>
           </div>
           

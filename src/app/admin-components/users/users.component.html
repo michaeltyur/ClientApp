@@ -1,8 +1,62 @@
 <div class="container jumbotron">
-  <h1 class="display-4">All Claents</h1>
+  <h1 class="display-4 page-title">All Clients</h1>
   <ul class="list-group mt-3">
-    <li class="list-group-item active" *ngFor="let user of users | async">
-      <p>{{user.firstName}} {{user.lastName}} email:{{user.email}} phone:{{user.phone}}</p>
+    <li class="list-group-item users-labels-panel">
+        <div class="row" >
+            <div class="col">
+              <p>First Name</p>
+            </div>
+            <div class="col">
+              <p>
+                Last Name
+              </p>
+            </div>
+            <div class="col">
+              <p>
+                 Email
+              </p>
+            </div>
+            <div class="col">
+              <p>
+                 Admin
+              </p>
+            </div>
+            <div class="col">
+                <p>
+                  Phone
+                </p>
+            </div>
+          </div>
+    </li>
+    <li class="list-group-item" 
+        *ngFor="let user of users" 
+        dropdownMenuItemHover
+        (click)="onSelectClient(user)">
+      <div class="row" >
+        <div class="col">
+          <p>{{user.firstName}}</p>
+        </div>
+        <div class="col">
+          <p>
+            {{user.lastName}}
+          </p>
+        </div>
+        <div class="col">
+          <p>
+             {{user.email}}
+          </p>
+        </div>
+        <div class="col">
+          <p>
+             {{user.admin}}
+          </p>
+        </div>
+        <div class="col">
+            <p>
+              {{user.phone}}
+            </p>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

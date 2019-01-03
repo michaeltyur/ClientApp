@@ -34,6 +34,7 @@ import { UperFirstLetterPipe } from './pipes/uper-first-letter.pipe';
 import { UserComponent } from './admin-components/user/user.component';
 import { UsersComponent } from './admin-components/users/users.component';
 import { ButtonHoverDirective } from './directives/button-hover.directive';
+import { DropdownMenuItemDirective } from './directives/dropdown-menu-item.directive';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ButtonHoverDirective } from './directives/button-hover.directive';
     UperFirstLetterPipe,
     UserComponent,
     UsersComponent,
-    ButtonHoverDirective
+    ButtonHoverDirective,
+    DropdownMenuItemDirective
   ],
   imports: [
     BrowserModule,
