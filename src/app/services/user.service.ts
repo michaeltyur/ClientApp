@@ -14,8 +14,10 @@ export class UserService {
   private usersCollectionRef: AngularFirestoreCollection<User>;
   users$: Observable<User[]>;
   currentUser$:Observable<User>;
+  private selectedClientForCalendarEmitter$:EventEmitter<User>;
 
-  private selectedClient:User;
+  private selectedClientForUpdate:User;
+
   private collectionName:string;
   private phonePrefix:string;
 
@@ -44,16 +46,21 @@ export class UserService {
       this.phonePrefix=phonePrefix;
     }
   }
-  onSelectedClient(client:User){
+  onSelectedClientForUpdate(client:User){
      if (client) {
-      this.selectedClient=client;
+      this.selectedClientForUpdate=client;
       this.router.navigate(['user']);
      }
   }
-  getSelectedClient():User{
-     return this.selectedClient;
+  getSelectedClientForUpdate():User{
+     return this.selectedClientForUpdate;
   }
-
+  emitUserforCalendar(client:User){
+    if (client) {
+      this.selectedClientForCalendarEmitter$.emit(client)
+    }
+    
+  }
   addUser(user:User ):void
   {
     if(user)

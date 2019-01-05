@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
 
     this.selectedPrefix='050';
 
-    this.client=userService.getSelectedClient();
+    this.client=userService.getSelectedClientForUpdate();
     if (this.client) {
       this.selectedPrefix=this.client.phone.substring(0, 3)
     }

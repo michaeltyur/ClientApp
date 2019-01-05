@@ -28,6 +28,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ClientServicesModalComponent } from 'src/app/modal-components/client-services-modal/client-services-modal.component';
+import { ClientSelectComponent } from 'src/app/modal-components/client-select/client-select.component';
 
 const colors: any = {
   red: {
@@ -136,7 +137,7 @@ export class CalendarComponent {
     }
     else if(type==='addclient')
     {
-      
+      const modalRef = this.modalService.open(ClientSelectComponent);
     }
     
   }

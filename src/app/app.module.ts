@@ -71,7 +71,10 @@ import { ClientSelectComponent } from './modal-components/client-select/client-s
     NgbModule,
     ReactiveFormsModule
   ],
-  entryComponents:[ClientServicesModalComponent],
+  entryComponents:[
+    ClientServicesModalComponent,
+    ClientSelectComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

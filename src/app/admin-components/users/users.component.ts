@@ -29,7 +29,7 @@ export class UsersComponent implements OnInit {
   }
   onSelectClient(client:User){
     if (client) {
-      this.userService.onSelectedClient(client);
+      this.userService.onSelectedClientForUpdate(client);
     }
   }
 }
