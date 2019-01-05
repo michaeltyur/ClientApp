@@ -1,0 +1,15 @@
+.modal-container{
+    padding: 10px;
+}
+.btn{
+    padding: 0 !important;
+    font-size: 30px !important;
+}
+.select-button{
+    font-family: Harrington;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 3 rem!important;
+    padding-top: 0;
+    padding-bottom: 0;
+}

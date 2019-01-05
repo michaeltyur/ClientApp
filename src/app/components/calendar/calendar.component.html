@@ -115,43 +115,53 @@
       </button>
       <div class="clearfix"></div>
     </h3>
-    
-    <table class="table table-bordered">
-    
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Primary color</th>
-          <th>Secondary color</th>
-          <th>Starts at</th>
-          <th>Ends at</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-    
-      <tbody>
-        <tr *ngFor="let event of events; let index = index">
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Event Title"
-              [(ngModel)]="event.title"
-              (keyup)="refresh.next()">
-          </td>
-          <td>
-            <input
+       
+      <ul class="list-group" *ngIf="events.length">
+        <li class="list-group-item events-panel-labels">
+          <div class="row">
+            <div class="col">
+              Service Type
+            </div>
+            <div class="col">
+              Client Name
+            </div>
+            <div class="col">
+              Primary color
+            </div>
+            <div class="col">
+              Starts at
+            </div>
+            <div class="col">
+              Remove
+            </div>           
+          </div>
+        </li>
+        <li class="list-group-item" *ngFor="let event of events; let index = index">
+          <div class="row">
+            <div class="col">
+
+              <button
+              class="btn btn-info"
+              (click)="showDialog()"
+              (click)="openModal('addservice')">
+              Add Service
+            </button>
+            </div>
+            <div class="col">
+           <button
+           class="btn btn-primary"
+           (click)="openModal('addclient')">
+            Add Client
+         </button>
+         </div>
+            <div class="col">
+                <input
               type="color"
               [(ngModel)]="event.color.primary"
               (change)="refresh.next()">
-          </td>
-          <td>
-            <input
-              type="color"
-              [(ngModel)]="event.color.secondary"
-              (change)="refresh.next()">
-          </td>
-          <td>
+            </div>
+
+            <div class="col">
             <input
             class="form-control"
             type="text"
@@ -164,35 +174,17 @@
               dateFormat="Y-m-dTH:i"
               altFormat="F j, Y H:i"
               placeholder="Not set">
-          </td>
-          <td>
-            <input
-            class="form-control"
-            type="text"
-            mwlFlatpickr
-            [altInput]="true"
-            [convertModelValue]="true"
-            [enableTime]="true"
-              [(ngModel)]="event.end"
-              (ngModelChange)="refresh.next()"
-              dateFormat="Y-m-dTH:i"
-              altFormat="F j, Y H:i"
-              placeholder="Not set">
-          </td>
-          <td>
+            </div>
+            <div class="col">
             <button
               class="btn btn-danger"
               (click)="events.splice(index, 1); refresh.next()">
               Delete
             </button>
-          </td>
-        </tr>
-      </tbody>
-    
-    </table>
-</div>
-    
-  
-    
+            </div>
+          </div>
+        </li>
+      </ul>  
+</div> 
   </div>
 </div>

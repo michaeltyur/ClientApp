@@ -5,7 +5,6 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import {AccordionModule} from 'primeng/accordion';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 
@@ -18,14 +17,10 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
-import { PricingComponent } from './components/pricing/pricing.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
@@ -35,6 +30,9 @@ import { UserComponent } from './admin-components/user/user.component';
 import { UsersComponent } from './admin-components/users/users.component';
 import { ButtonHoverDirective } from './directives/button-hover.directive';
 import { DropdownMenuItemDirective } from './directives/dropdown-menu-item.directive';
+import { ClientServicesModalComponent } from './modal-components/client-services-modal/client-services-modal.component';
+import { ClientSelectComponent } from './modal-components/client-select/client-select.component';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +41,6 @@ import { DropdownMenuItemDirective } from './directives/dropdown-menu-item.direc
     LoginComponent,
     HomeComponent,
     AboutComponent,
-    PricingComponent,
     GalleryComponent,
     RegistrationComponent,
     CalendarComponent,
@@ -52,15 +49,14 @@ import { DropdownMenuItemDirective } from './directives/dropdown-menu-item.direc
     UserComponent,
     UsersComponent,
     ButtonHoverDirective,
-    DropdownMenuItemDirective
+    DropdownMenuItemDirective,
+    ClientServicesModalComponent,
+    ClientSelectComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -72,10 +68,10 @@ import { DropdownMenuItemDirective } from './directives/dropdown-menu-item.direc
     AngularFireStorageModule,
     ReactiveFormsModule,
     FormsModule ,
-    AccordionModule,
     NgbModule,
     ReactiveFormsModule
   ],
+  entryComponents:[ClientServicesModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

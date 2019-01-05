@@ -1,0 +1,21 @@
+<div class="container modal-container">
+  <h4 class="pb-2 form-title text-center">Please select service</h4>
+
+      <div class="btn-group-vertical container-fluid">
+    <button *ngFor="let service of nailservices"
+            type="button" 
+            class="btn btn-outline-info btn-lg btn-block select-button"
+            (click)="onSelectNailService(service)"
+            data-toggle="button">{{service.serviceType}}</button>
+  </div>
+
+  <div class="btn-group container-fluid mt-3" role="group" aria-label="Basic example">
+      <button type="button" 
+            class="btn btn-outline-success col btn-lg" 
+          (click)="onSelectedService()">Select</button>
+          <button type="button" 
+          class="btn btn-outline-danger col btn-lg" 
+         (click)="activeModal.close('Close click')">Close</button>
+  </div>
+ 
+</div>

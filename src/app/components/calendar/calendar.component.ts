@@ -23,10 +23,11 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ClientServicesModalComponent } from 'src/app/modal-components/client-services-modal/client-services-modal.component';
 
 const colors: any = {
   red: {
@@ -55,7 +56,7 @@ export class CalendarComponent {
 
   @ViewChild('modalContent')
   modalContent: TemplateRef<any>;
-
+  display: boolean = false;
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -68,72 +69,23 @@ export class CalendarComponent {
   };
 
   actions: CalendarEventAction[] = [];
-  //   {
-  //     label: '<i class="fa fa-fw fa-pencil"></i>',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.handleEvent('Edited', event);
-  //     }
-  //   },
-  //   {
-  //     label: '<i class="fa fa-fw fa-times"></i>',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.events = this.events.filter(iEvent => iEvent !== event);
-  //       this.handleEvent('Deleted', event);
-  //     }
-  //   }
-  // ];
+
 
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [];
-  //   {
-  //     start: subDays(startOfDay(new Date()), 1),
-  //     end: addDays(new Date(), 1),
-  //     title: 'A 3 day event',
-  //     color: colors.red,
-  //     actions: this.actions,
-  //     allDay: true,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'An event with no end date',
-  //     color: colors.yellow,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: subDays(endOfMonth(new Date()), 3),
-  //     end: addDays(endOfMonth(new Date()), 3),
-  //     title: 'A long event that spans 2 months',
-  //     color: colors.blue,
-  //     allDay: true
-  //   },
-  //   {
-  //     start: addHours(startOfDay(new Date()), 2),
-  //     end: new Date(),
-  //     title: 'A draggable and resizable event',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   }
-  // ];
 
   activeDayIsOpen: boolean ;
 
-  constructor(private modal: NgbModal,private authService:AuthenticationService) {
+  constructor(private modalService: NgbModal,
+              private authService:AuthenticationService) {
     this.activeDayIsOpen=false;
     this.currentUser=authService.getCurrentUser();
     authService.currentUserEmitter$.subscribe(res=>this.currentUser=res);
   }
-
+  showDialog() {
+    this.display = true;
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
@@ -161,7 +113,7 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    this.modalService.open(this.modalContent, { size: 'lg' });
   }
 
   addEvent(): void {
@@ -178,5 +130,14 @@ export class CalendarComponent {
     });
     this.refresh.next();
   }
-
+  openModal(type:string){
+    if (type==='addservice') {
+      const modalRef = this.modalService.open(ClientServicesModalComponent);
+    }
+    else if(type==='addclient')
+    {
+      
+    }
+    
+  }
 }

@@ -6,3 +6,8 @@ h3 {
     background-color: #f5f5f5;
     padding: 15px;
   }
+  .events-panel-labels{
+    font-family: Kristen ITC;
+    font-weight: bold;
+    font-style: italic;
+  }

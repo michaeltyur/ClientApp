@@ -5,7 +5,6 @@ import { AdminGuardService } from './guards/admin-guard.service';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { PricingComponent } from './components/pricing/pricing.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { UserComponent } from './admin-components/user/user.component';
@@ -15,7 +14,6 @@ const routes: Routes = [
   { path: '',  redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuardService] },
-  { path: 'pricing', component: PricingComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user',  component: UserComponent,canActivate: [AdminGuardService] },
