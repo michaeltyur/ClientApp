@@ -14,7 +14,10 @@ export class UserService {
   private usersCollectionRef: AngularFirestoreCollection<User>;
   users$: Observable<User[]>;
   currentUser$:Observable<User>;
-  
+
+  userAdded$:EventEmitter<User>;
+  userUpdated$:EventEmitter<User>;
+  userDeleted$:EventEmitter<User>;
 
   private collectionName:string;
   private phonePrefix:string;
@@ -26,7 +29,9 @@ export class UserService {
               private router: Router,
               private msgService:MessageService) {
     this.collectionName='users';
-
+    this.userAdded$ = new EventEmitter<User>();
+    this.userUpdated$ = new EventEmitter<User>();
+    this.userDeleted$ = new EventEmitter<User>();
     this.usersCollectionRef = this.afs.collection(this.collectionName);
     this.users$ = this.usersCollectionRef.valueChanges();
     
@@ -47,25 +52,31 @@ export class UserService {
     }
   }
       
-  addUser(user:User ):void
+  addUser(user:User ):Promise<boolean>
   {
     if(user)
     {
-      let res= this.getUser(user.email).then(res=>{
+      return this.getUser(user.email).then(res=>{
         if(!res)
         {
-          user.admin=false;
-          const userForDb=<User>user;
-           this.usersCollectionRef.doc(userForDb.email).set(userForDb)
+          //user.admin=false;
+         // const userForDb=<User>user;
+          return this.usersCollectionRef.doc(user.email).set(user)
            .then((complit)=>
            {
              this.msgService.sendMessage('alert-success',`user ${user.firstName} is added successfully`);
-             this.router.navigate(['home']);
-            },
-                  (error)=>console.log(error));
+             return true;
+             //this.router.navigate(['home']);
+            })
+            .catch(err=>{
+              this.msgService.sendMessage("alert-warning","an error has occurred ");
+              return false;
+            });
+            
         }
         else{
           this.msgService.sendMessage("alert-warning","this email is allready registered");
+          return false;
         }});    
     }}
 
@@ -88,25 +99,41 @@ export class UserService {
    }
    
 
-    updateUser(user: User) {
+    updateUser(user: User):Promise<boolean> {
       if (user) {
-        this.usersCollectionRef.doc(user.id).update(user);
-      }
-      
-    }
-    
-    deleteUser(user: User):void {
-      if (user) {
-        let userForDelete=user;
-        this.usersCollectionRef.doc(user.email).delete()
-        .then(res=>
+       return this.usersCollectionRef
+        .doc(user.email)
+        .update(user)
+        .then(ok=>
           {
-            this.msgService.sendMessage('alert-success',`user ${userForDelete.firstName} is deleted successfully`);
-            this.router.navigate(['home']);
+            this.msgService.sendMessage('alert-success',`user ${user.firstName} is update successfully`);
+            this.userUpdated$.emit(user);
+            return true;
           })
         .catch(err=>
           {
             this.msgService.sendMessage("alert-warning","an error has occurred ");
+            return false
+          });
+      }
+      
+    }
+    
+    deleteUser(user: User):Promise<boolean> {
+      if (user) {
+        let userForDelete=user;
+       return this.usersCollectionRef.doc(user.email).delete()
+        .then(res=>
+          {
+            this.userDeleted$.emit(user);
+            this.msgService.sendMessage('alert-success',`user ${userForDelete.firstName} is deleted successfully`);
+            return true;
+            //this.router.navigate(['home']);
+          })
+        .catch(err=>
+          {
+            this.msgService.sendMessage("alert-warning","an error has occurred ");
+            return false;
           });
       }
       

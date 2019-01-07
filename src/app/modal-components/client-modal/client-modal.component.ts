@@ -58,8 +58,6 @@ export class ClientModalComponent implements OnInit {
       lastName: [this.client.lastName, [Validators.required,
                       Validators.minLength(this.nameMinLength),
                       Validators.maxLength(this.nameMaxLength)]],
-      email:    [this.client.email,  [ Validators.required,
-                        Validators.email]],
       phone:    [this.client.phone.substring(3), [Validators.required,
                       Validators.minLength(this.phoneMinLength), 
                       Validators.maxLength(this.phoneMaxLength),
@@ -67,6 +65,11 @@ export class ClientModalComponent implements OnInit {
                       ValidatePhoneNotExist.createValidator(this.userService) ]  ,
       admin:    [{value: this.client.admin, disabled: true}]      
     });
+    if (this.client.email!='') {
+      this.userForm.addControl('email', new FormControl({name:this.client.email,disabled:true}));
+    }
+    else 
+       this.userForm.addControl('email', new FormControl(this.client.email,[ Validators.required,Validators.email]));
   }
   get firstName() {
     return this.userForm.get('firstName');
@@ -100,7 +103,7 @@ export class ClientModalComponent implements OnInit {
   }
   updateClient():void{
     if (this.userForm.valid) {
-      let user = this.userForm.value as User;
+      let user = this.userForm.getRawValue();
       user.phone=this.selectedPrefix + this.phone.value;
       this.userService.updateUser(user);
       this.activeModal.close('Close click');

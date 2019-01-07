@@ -40,4 +40,25 @@ export class UsersComponent implements OnInit {
       //this.selectedService.onSelectedClientForUpdate(client);
     }
   }
+  addClientLocaly(client:User):void{
+     if (client) {
+      this.users.push(client);
+     }
+  }
+  updateClientLocaly(client:User):void{
+    if (client) {
+      let index=this.users.indexOf(client);
+     if (index>-1) {
+      this.users[index]=client;
+     }
+    }
+ }
+ deleteClientLocaly(client:User):void{
+  if (client) {
+    let index=this.users.indexOf(client);
+   if (index>-1) {
+    this.users.splice(index,1);
+   }
+  }
+}
 }
