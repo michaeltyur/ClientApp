@@ -18,7 +18,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
@@ -42,7 +41,6 @@ import { HoverDirective } from './directives/hover.directive';
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginComponent,
     HomeComponent,
     AboutComponent,
     GalleryComponent,

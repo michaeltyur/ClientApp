@@ -43,6 +43,9 @@ label{
     font-family: Magneto;
     font-size: 30px;
 }
+.form-control{
+    width: 20rem;
+}
 .btn{
     font-family: Magneto;
 }

@@ -4,6 +4,7 @@ import { User } from '../../models/user';
 import { passwordMaxLength,passwordMinLength} from '../../consts/validation.consts'
 import { FormGroup,Validators,FormBuilder,FormControl } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class LoginModalComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private userService:UserService,
+              private userAuth:AuthenticationService,
               public activeModal: NgbActiveModal,
               private modalService: NgbModal) { 
       this.passwordMinLength=passwordMinLength
@@ -42,7 +44,13 @@ export class LoginModalComponent implements OnInit {
   }
   login():void{
     if (this.userForm.valid) {
-      
+     let result = this.userAuth.login(this.email.value,this.password.value);
+     result.then(res=>
+      {
+        if(res)
+          this.activeModal.close('Close click');          
+      })
+
     }
   }
 }

@@ -34,9 +34,9 @@ export class AuthenticationService {
   getCurrentUser():User{
    return this.currentUser;
   }
-   login(email:string,password:string):void{
+   login(email:string,password:string):Promise<any>{
 
-    this.userService.getUser(email).then(user=>
+   return this.userService.getUser(email).then(user=>
       {      
         if (user) {
           if (user.password==password) 
@@ -45,13 +45,19 @@ export class AuthenticationService {
             this.currentUser=user;
             this.currentUserEmitter$.emit(this.currentUser);
             this.router.navigate(['home']);
+            return true;
           }
           else
           {
             this.msgService.sendMessage("alert-warning","password is incorrect");
+            return false;
           }
         }
-        else this.msgService.sendMessage("alert-warning",'user not found');
+        else 
+        {
+          this.msgService.sendMessage("alert-warning",'user not found');
+          return false;
+        }
       });
    }
 
