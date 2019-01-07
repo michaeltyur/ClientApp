@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 import { Observable } from 'rxjs';
+import { SelectionService } from 'src/app/services/selection.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClientSelectComponent } from 'src/app/modal-components/client-select/client-select.component';
+import { ClientModalComponent } from 'src/app/modal-components/client-modal/client-modal.component';
 
 @Component({
   selector: 'app-users',
@@ -12,7 +16,9 @@ export class UsersComponent implements OnInit {
 
   users$:Observable<User[]>;
   users:User[];
-  constructor(private userService:UserService) { 
+  constructor(private userService:UserService,
+              private selectedService:SelectionService,
+              private modalService: NgbModal) { 
     this.users=[];
     
   }
@@ -29,7 +35,9 @@ export class UsersComponent implements OnInit {
   }
   onSelectClient(client:User){
     if (client) {
-      this.userService.onSelectedClientForUpdate(client);
+      const modalRef = this.modalService.open(ClientModalComponent,{centered:true});
+      modalRef.componentInstance.client=client;
+      //this.selectedService.onSelectedClientForUpdate(client);
     }
   }
 }

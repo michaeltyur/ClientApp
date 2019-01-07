@@ -14,9 +14,7 @@ export class UserService {
   private usersCollectionRef: AngularFirestoreCollection<User>;
   users$: Observable<User[]>;
   currentUser$:Observable<User>;
-  private selectedClientForCalendarEmitter$:EventEmitter<User>;
-
-  private selectedClientForUpdate:User;
+  
 
   private collectionName:string;
   private phonePrefix:string;
@@ -24,7 +22,9 @@ export class UserService {
   private userDoc: AngularFirestoreDocument<User>;
   
 
-  constructor(private afs: AngularFirestore, private router: Router,private msgService:MessageService) {
+  constructor(private afs: AngularFirestore, 
+              private router: Router,
+              private msgService:MessageService) {
     this.collectionName='users';
 
     this.usersCollectionRef = this.afs.collection(this.collectionName);
@@ -46,21 +46,7 @@ export class UserService {
       this.phonePrefix=phonePrefix;
     }
   }
-  onSelectedClientForUpdate(client:User){
-     if (client) {
-      this.selectedClientForUpdate=client;
-      this.router.navigate(['user']);
-     }
-  }
-  getSelectedClientForUpdate():User{
-     return this.selectedClientForUpdate;
-  }
-  emitUserforCalendar(client:User){
-    if (client) {
-      this.selectedClientForCalendarEmitter$.emit(client)
-    }
-    
-  }
+      
   addUser(user:User ):void
   {
     if(user)
@@ -71,7 +57,11 @@ export class UserService {
           user.admin=false;
           const userForDb=<User>user;
            this.usersCollectionRef.doc(userForDb.email).set(userForDb)
-           .then((complit)=>this.router.navigate(['home']),
+           .then((complit)=>
+           {
+             this.msgService.sendMessage('alert-success',`user ${user.firstName} is added successfully`);
+             this.router.navigate(['home']);
+            },
                   (error)=>console.log(error));
         }
         else{
@@ -105,9 +95,19 @@ export class UserService {
       
     }
     
-    deleteUser(user: User) {
+    deleteUser(user: User):void {
       if (user) {
-        this.usersCollectionRef.doc(user.id).delete();
+        let userForDelete=user;
+        this.usersCollectionRef.doc(user.email).delete()
+        .then(res=>
+          {
+            this.msgService.sendMessage('alert-success',`user ${userForDelete.firstName} is deleted successfully`);
+            this.router.navigate(['home']);
+          })
+        .catch(err=>
+          {
+            this.msgService.sendMessage("alert-warning","an error has occurred ");
+          });
       }
       
     }

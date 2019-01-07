@@ -4,6 +4,8 @@ import { NailWork } from 'src/app/models/client-service';
 import { NailserviceService } from 'src/app/services/nailservice.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { ClientModalComponent } from '../client-modal/client-modal.component';
+import { SelectionService } from 'src/app/services/selection.service';
 
 @Component({
   selector: 'app-client-select',
@@ -14,7 +16,10 @@ export class ClientSelectComponent implements OnInit {
 
   clients:User[];
 
-  constructor(public activeModal: NgbActiveModal,private userService:UserService) {
+  constructor(public activeModal: NgbActiveModal,
+              private modalService: NgbModal,
+              private userService:UserService,
+              private selectionService:SelectionService) {
     this.clients=[];
   }
   
@@ -29,7 +34,13 @@ export class ClientSelectComponent implements OnInit {
   }
   onSelectClient(client:User):void{
     if (client) {
-      this.userService.emitUserforCalendar(client);
+      this.selectionService.emitUserforCalendar(client);
     }
   }
+  newClient():void{
+    const modalRef = this.modalService.open(ClientModalComponent,{centered:true});   
+    modalRef.componentInstance.client={firstName:'',lastName:'',email:'',phone:'',admin:false};
+    this.activeModal.close('Close click');
+    }
+  
 }

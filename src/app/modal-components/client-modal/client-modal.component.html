@@ -1,0 +1,164 @@
+
+<div class="container">
+  <button type="button" 
+          class="btn btn-danger close-modal-button"
+          appButtonHover
+          (click)="activeModal.close('Close click')">X</button>
+  <div class="row justify-content-center">
+       <form [formGroup]="userForm">
+        <h4 class="pb-2 form-title label" *ngIf="client.email===''">Add New Client</h4>
+        <h4 class="pb-2 form-title label" *ngIf="client.email!==''">Update Client</h4>
+        <!-- First Name -->
+        <div class="form-group">
+          <label class="label" for="firstNameInput">First Name</label>
+          
+          <span class="validation-alert alert-text label" *ngIf="firstName.errors?.required">
+              is required
+          </span>
+          <span class="validation-alert alert-text label" *ngIf="firstName.errors?.minlength">
+              must be greater than {{nameMinLength-1}}
+          </span>
+          <span class="validation-alert alert-text label" *ngIf="firstName.errors?.maxlength">
+              must be less than {{nameMaxLength-1}}
+          </span>
+            <input [formControl]="firstName"
+                   type="text" 
+                   class="form-control" 
+                   placeholder="Enter first name"
+                   id="firstNameInput"
+                   #firstNameInput>
+        </div>
+        <!--End First Name -->
+        
+        <!-- Last Name -->
+        <div class="form-group">
+            <label class="label" for="lastNameInput">Last Name</label>
+
+            <span class="validation-alert alert-text label" *ngIf="lastName.errors?.required">
+              is required
+            </span>
+            <span class="validation-alert alert-text label" *ngIf="lastName.errors?.minlength">
+              must be greater than {{nameMinLength-1}}
+            </span>
+            <span class="validation-alert alert-text label" *ngIf="lastName.errors?.maxlength">
+              must be less than {{nameMaxLength-1}}
+            </span>
+            <input [formControl]="lastName"
+                   type="text" 
+                   class="form-control" 
+                   placeholder="Enter last name"  
+                   id="lastNameInput"               
+                   #lastNameInput>
+        </div>
+        <!--End Last Name -->
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label class="label" for="phoneInput">Phone Number</label>
+          <span class="validation-alert alert-text label" *ngIf="phone.errors?.required">
+              is required
+          </span>
+          <span class="validation-alert process alert-text label" *ngIf="phone.status==='PENDING'">
+              Checking...
+          </span>
+          <span class="validation-alert alert-text label" *ngIf="phone.errors?.phoneExist">
+              number already exists
+          </span>
+          <span class="validation-alert alert-text label" *ngIf="phone.errors?.minlength&&!phone.errors?.phoneasnumber">
+              phone too short
+          </span>
+          <span class="validation-alert alert-text label" *ngIf="phone.errors?.maxlength">
+              phone too long
+          </span>
+          <span class="validation-alert alert-text label" *ngIf="phone.errors?.phoneasnumber">
+              must to be just a digits
+          </span>
+          <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary dropdown-toggle" 
+                            type="button" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false">{{selectedPrefix}}</button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" 
+                      dropdownMenuItemHover
+                         *ngFor="let prefix of phonePrefixs" (click)="onSelectPrefix(prefix)">
+                          {{prefix}}
+                    </a>
+                    </div>
+                  </div>
+                  <!-- <input type="text" class="form-control" aria-label="Text input with dropdown button"> -->
+                  <input [formControl]="phone"
+                         maxlength="7"                          
+                         type="text" 
+                         class="form-control" 
+                         placeholder="Enter phone number"       
+                         id="phoneInput"         
+                         #phoneInput>
+                </div>
+      </div>
+      <!--End Phone Number -->
+
+      <!-- Email Address -->
+        <div class="form-group">
+         <label class="label" for="emailInput">Email address</label>
+         <span class="validation-alert alert-text label" *ngIf="email.errors?.required">
+              is required
+        </span>
+        <span class="validation-alert alert-text label" *ngIf="email.errors?.valid">
+              is not valid
+          </span>
+        <input [formControl]="email"
+               type="email" 
+               class="form-control" 
+               placeholder="Enter email"   
+               id="emailInput"              
+               #emailInput>
+    </div>
+    <!--End Email Address -->
+ <!-- Admin -->
+ <div class="form-group">
+  <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">Admin</div>
+    </div>
+    <input [formControl]="admin" 
+           type="text" 
+           class="form-control" 
+           id="adminInput" 
+           placeholder="Admin" >
+  </div>
+</div>
+<!--End Admin -->
+        <div class="row m-0 p-0">
+          <div class="col p-0">
+             <button type="submit" 
+                     class="btn btn-primary btn-block form-button"
+                     appButtonHover
+                     (click)="addClient()"
+                     *ngIf="client.email===''"
+                     [disabled]="userForm.invalid">Add</button>
+              
+       <div class="btn-group container-fluid mt-3 p-0" 
+            role="group" 
+            aria-label="Basic example"
+            *ngIf="client.email!==''">
+          <button type="button" 
+                  class="btn btn-success col btn-lg" 
+                  appButtonHover
+                  (click)="updateClient()">Update</button>
+          <button type="button" 
+                 class="btn btn-danger col btn-lg" 
+                 appButtonHover
+                 (click)="deleteClient()">Delete</button>
+      </div>
+                              
+             
+          </div>
+        </div>
+        
+      </form>
+
+  </div>  
+</div>

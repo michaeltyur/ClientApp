@@ -26,12 +26,16 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { MessageComponent } from './components/message/message.component';
 import { UperFirstLetterPipe } from './pipes/uper-first-letter.pipe';
-import { UserComponent } from './admin-components/user/user.component';
 import { UsersComponent } from './admin-components/users/users.component';
 import { ButtonHoverDirective } from './directives/button-hover.directive';
 import { DropdownMenuItemDirective } from './directives/dropdown-menu-item.directive';
 import { ClientServicesModalComponent } from './modal-components/client-services-modal/client-services-modal.component';
 import { ClientSelectComponent } from './modal-components/client-select/client-select.component';
+import { ClientModalComponent } from './modal-components/client-modal/client-modal.component';
+import { LoginModalComponent } from './modal-components/login-modal/login-modal.component';
+import { ConfirmationComponent } from './modal-components/confirmation/confirmation.component';
+import { TitlePipe } from './pipes/title.pipe';
+import { HoverDirective } from './directives/hover.directive';
 
 
 @NgModule({
@@ -46,12 +50,16 @@ import { ClientSelectComponent } from './modal-components/client-select/client-s
     CalendarComponent,
     MessageComponent,
     UperFirstLetterPipe,
-    UserComponent,
     UsersComponent,
     ButtonHoverDirective,
     DropdownMenuItemDirective,
     ClientServicesModalComponent,
-    ClientSelectComponent
+    ClientSelectComponent,
+    ClientModalComponent,
+    LoginModalComponent,
+    ConfirmationComponent,
+    TitlePipe,
+    HoverDirective
   ],
   imports: [
     BrowserModule,
@@ -68,12 +76,15 @@ import { ClientSelectComponent } from './modal-components/client-select/client-s
     AngularFireStorageModule,
     ReactiveFormsModule,
     FormsModule ,
-    NgbModule,
+    NgbModule.forRoot(),
     ReactiveFormsModule
   ],
   entryComponents:[
     ClientServicesModalComponent,
-    ClientSelectComponent
+    ClientSelectComponent,
+    ClientModalComponent,
+    ConfirmationComponent,
+    LoginModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

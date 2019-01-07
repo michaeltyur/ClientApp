@@ -114,7 +114,7 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    this.modalService.open(this.modalContent, { size: 'lg' });
+    this.modalService.open(this.modalContent, { centered:true,size: 'lg' });
   }
 
   addEvent(): void {
@@ -133,11 +133,11 @@ export class CalendarComponent {
   }
   openModal(type:string){
     if (type==='addservice') {
-      const modalRef = this.modalService.open(ClientServicesModalComponent);
+      const modalRef = this.modalService.open(ClientServicesModalComponent,{centered:true});
     }
     else if(type==='addclient')
     {
-      const modalRef = this.modalService.open(ClientSelectComponent);
+      const modalRef = this.modalService.open(ClientSelectComponent,{centered:true});
     }
     
   }

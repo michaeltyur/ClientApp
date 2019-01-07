@@ -7,7 +7,6 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { UserComponent } from './admin-components/user/user.component';
 import { UsersComponent } from './admin-components/users/users.component';
 
 const routes: Routes = [
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuardService] },
   { path: 'gallery', component: GalleryComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'user',  component: UserComponent,canActivate: [AdminGuardService] },
   { path: 'users',  component: UsersComponent,canActivate: [AdminGuardService] },
   { path: '**', component: HomeComponent}
 ];

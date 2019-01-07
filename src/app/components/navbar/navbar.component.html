@@ -19,7 +19,7 @@
                   routerLinkActive="active"
                   appButtonHover>Gallery</button>
                   <button class="col btn btn-outline-success" 
-                       routerLink="/user" 
+                       (click)="goToNewUser()"
                        routerLinkActive="active"
                        appButtonHover
                        *ngIf="currentUser?.admin">Add Client</button>
@@ -29,7 +29,7 @@
                        appButtonHover
                        *ngIf="currentUser?.admin">All Clients</button>
           <button class="col btn btn-outline-success" 
-                routerLink="/login" 
+                (click)="goToLogin()"
                 routerLinkActive="active"
                 appButtonHover
                 *ngIf="!currentUser">Login</button>

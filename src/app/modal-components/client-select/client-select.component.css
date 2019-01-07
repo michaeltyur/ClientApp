@@ -12,3 +12,9 @@
     padding-top: 0;
     padding-bottom: 0;
 }
+.close-modal-button{
+    width: 45px !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
