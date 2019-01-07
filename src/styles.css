@@ -35,9 +35,17 @@ body{
     z-index: 100;
     border-radius: 5px;
 }
-label{
+label{  
     font-family: Stencil;
     color: rgb(7, 6, 88);
+}
+.label{
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    background-color: rgb(236, 235, 234);
+    border-radius: 5px;
+    padding: 0;
 }
 .form-title{
     font-family: Magneto;

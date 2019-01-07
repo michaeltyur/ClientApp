@@ -53,23 +53,20 @@ export class ClientModalComponent implements OnInit {
     ngOnInit() {
     this.userForm=this.fb.group({
       firstName:[this.client.firstName, [Validators.required,
-                      Validators.minLength(this.nameMinLength),
-                      Validators.maxLength(this.nameMaxLength)]],
+                                         Validators.minLength(this.nameMinLength),
+                                         Validators.maxLength(this.nameMaxLength)]],
       lastName: [this.client.lastName, [Validators.required,
-                      Validators.minLength(this.nameMinLength),
-                      Validators.maxLength(this.nameMaxLength)]],
+                                        Validators.minLength(this.nameMinLength),
+                                        Validators.maxLength(this.nameMaxLength)]],
+      email:    [{value:this.client.email,disabled:this.client.email!==''},[Validators.required,Validators.email]],
       phone:    [this.client.phone.substring(3), [Validators.required,
-                      Validators.minLength(this.phoneMinLength), 
-                      Validators.maxLength(this.phoneMaxLength),
-                      ValidatePhoneAsNumber ],
-                      ValidatePhoneNotExist.createValidator(this.userService) ]  ,
+                                                  Validators.minLength(this.phoneMinLength), 
+                                                  Validators.maxLength(this.phoneMaxLength),
+                                                  ValidatePhoneAsNumber ],
+                                                  ValidatePhoneNotExist.createValidator(this.userService) ]  ,
       admin:    [{value: this.client.admin, disabled: true}]      
     });
-    if (this.client.email!='') {
-      this.userForm.addControl('email', new FormControl({name:this.client.email,disabled:true}));
-    }
-    else 
-       this.userForm.addControl('email', new FormControl(this.client.email,[ Validators.required,Validators.email]));
+
   }
   get firstName() {
     return this.userForm.get('firstName');

@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
          <form [formGroup]="userForm">
 
-          <h4 class="pb-2 form-title label text-center">Login</h4>       
+        <h4 class="pb-2 form-title text-center"><span class="label">Login</span></h4>       
   
         <!-- Email Address -->
           <div class="form-group">
@@ -28,14 +28,14 @@
 
                <!-- Password -->
                <div class="form-group">                                  
-                  <label for="passwordInput">Password</label>                                   
+                  <label class="label" for="passwordInput">Password</label>                                   
                     <span class="validation-alert alert-text" *ngIf="password.errors?.required">
                   is required
                </span>
-               <span class="validation-alert alert-text" *ngIf="password.errors?.minlength">
+               <span class="validation-alert alert-text label" *ngIf="password.errors?.minlength">
                     must be greater than {{passwordMinLength-1}} 
                </span>
-               <span class="validation-alert alert-text" *ngIf="password.errors?.maxlength">
+               <span class="validation-alert alert-text label" *ngIf="password.errors?.maxlength">
                     must be less than {{passwordMaxLength-1}}
                </span>                                                    
              
