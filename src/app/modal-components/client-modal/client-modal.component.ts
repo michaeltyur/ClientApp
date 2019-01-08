@@ -58,7 +58,7 @@ export class ClientModalComponent implements OnInit {
       lastName: [this.client.lastName, [Validators.required,
                                         Validators.minLength(this.nameMinLength),
                                         Validators.maxLength(this.nameMaxLength)]],
-      email:    [{value:this.client.email,disabled:this.client.email!==''},[Validators.required,Validators.email]],
+      email:    [{value:this.client.email,disabled:this.client.email!==''},[Validators.required, Validators.email]],
       phone:    [this.client.phone.substring(3), [Validators.required,
                                                   Validators.minLength(this.phoneMinLength), 
                                                   Validators.maxLength(this.phoneMaxLength),

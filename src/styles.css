@@ -78,4 +78,7 @@ label{
     z-index: 100;
     border-radius: 5px;
 }
-
+/* alert */
+.form-control.ng-invalid.ng-touched{
+    border: 1px solid red;
+}

@@ -6,21 +6,27 @@
           (click)="activeModal.close('Close click')">X</button>
   <div class="row justify-content-center">
        <form [formGroup]="userForm">
-        <h4 class="pb-2 form-title text-center" *ngIf="client.email===''"><span class="label">Add New Client</span></h4>
-        <h4 class="pb-2 form-title text-center" *ngIf="client.email!==''"><span class="label">Update Client</span></h4>
+        <h4 class="pb-2 form-title text-center" >
+          <span class="label" *ngIf="client.email===''">Add New Client</span>
+          <span class="label" *ngIf="client.email!==''">Update Client</span>
+        </h4>
         <!-- First Name -->
         <div class="form-group">
           <label class="label" for="firstNameInput">First Name</label>
-          
-          <span class="validation-alert alert-text label" *ngIf="firstName.errors?.required">
+          <span class="validation-alert alert-text label" *ngIf="firstName.dirty ||firstName.touched">
+            <div  *ngIf="firstName.errors?.required">
               is required
-          </span>
-          <span class="validation-alert alert-text label" *ngIf="firstName.errors?.minlength">
+            </div>
+            <div *ngIf="firstName.errors?.minlength">
               must be greater than {{nameMinLength-1}}
-          </span>
-          <span class="validation-alert alert-text label" *ngIf="firstName.errors?.maxlength">
+            </div>
+            <div *ngIf="firstName.errors?.maxlength">
               must be less than {{nameMaxLength-1}}
+            </div>
           </span>
+          
+          
+         
             <input [formControl]="firstName"
                    type="text" 
                    class="form-control" 
@@ -34,15 +40,18 @@
         <div class="form-group">
             <label class="label" for="lastNameInput">Last Name</label>
 
-            <span class="validation-alert alert-text label" *ngIf="lastName.errors?.required">
-              is required
+            <span class="validation-alert alert-text label" *ngIf="lastName.dirty ||lastName.touched">
+              <div *ngIf="lastName.errors?.required">
+                 is required
+              </div>
+              <div *ngIf="lastName.errors?.minlength">
+                 must be greater than {{nameMinLength-1}}
+              </div>
+              <div *ngIf="lastName.errors?.maxlength">
+                  must be less than {{nameMaxLength-1}}
+              </div>
             </span>
-            <span class="validation-alert alert-text label" *ngIf="lastName.errors?.minlength">
-              must be greater than {{nameMinLength-1}}
-            </span>
-            <span class="validation-alert alert-text label" *ngIf="lastName.errors?.maxlength">
-              must be less than {{nameMaxLength-1}}
-            </span>
+           
             <input [formControl]="lastName"
                    type="text" 
                    class="form-control" 
@@ -55,24 +64,28 @@
         <!-- Phone Number -->
         <div class="form-group">
           <label class="label" for="phoneInput">Phone Number</label>
-          <span class="validation-alert alert-text label" *ngIf="phone.errors?.required">
-              is required
-          </span>
-          <span class="validation-alert process alert-text label" *ngIf="phone.status==='PENDING'">
-              Checking...
-          </span>
-          <span class="validation-alert alert-text label" *ngIf="phone.errors?.phoneExist">
-              number already exists
-          </span>
-          <span class="validation-alert alert-text label" *ngIf="phone.errors?.minlength&&!phone.errors?.phoneasnumber">
+
+          <span class="validation-alert alert-text label" *ngIf="phone.dirty ||phone.touched">
+            <div *ngIf="phone.errors?.required">
+                is required
+            </div>
+            <div *ngIf="phone.status==='PENDING'">
+               Checking...
+            </div>
+            <div *ngIf="phone.errors?.phoneExist">
+               number already exists
+            </div>
+            <div *ngIf="phone.errors?.minlength&&!phone.errors?.phoneasnumber">
               phone too short
-          </span>
-          <span class="validation-alert alert-text label" *ngIf="phone.errors?.maxlength">
+            </div>
+            <div *ngIf="phone.errors?.maxlength">
               phone too long
-          </span>
-          <span class="validation-alert alert-text label" *ngIf="phone.errors?.phoneasnumber">
+              </div>
+            <div *ngIf="phone.errors?.phoneasnumber">
               must to be just a digits
+            </div>
           </span>
+
           <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <button class="btn btn-outline-secondary dropdown-toggle" 
@@ -88,7 +101,7 @@
                     </a>
                     </div>
                   </div>
-                  <!-- <input type="text" class="form-control" aria-label="Text input with dropdown button"> -->
+
                   <input [formControl]="phone"
                          maxlength="7"                          
                          type="text" 
@@ -103,12 +116,15 @@
       <!-- Email Address -->
         <div class="form-group">
          <label class="label" for="emailInput">Email address</label>
-         <span class="validation-alert alert-text label" *ngIf="email.errors?.required">
-              is required
+         <span class="validation-alert alert-text label" *ngIf="email.dirty ||email.touched">
+           <div *ngIf="email.errors?.required">
+             is required
+           </div>
+           <div *ngIf="email.errors?.valid">
+             is not valid
+           </div>            
         </span>
-        <span class="validation-alert alert-text label" *ngIf="email.errors?.valid">
-              is not valid
-          </span>
+
         <input [formControl]="email"
                type="email" 
                class="form-control" 

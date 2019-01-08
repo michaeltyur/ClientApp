@@ -11,12 +11,15 @@
         <!-- Email Address -->
           <div class="form-group">
            <label class="label" for="emailInput">Email address</label>
-           <span class="validation-alert alert-text label" *ngIf="email.errors?.required">
-                is required
+           <span class="validation-alert alert-text label"  *ngIf="email.dirty ||email.touched">
+               <div *ngIf="email.errors?.required">
+                  is required
+               </div>
+               <div *ngIf="email.errors?.valid">
+                  is not valid
+               </div>             
           </span>
-          <span class="validation-alert alert-text label" *ngIf="email.errors?.valid">
-                is not valid
-            </span>
+
           <input [formControl]="email"
                  type="email" 
                  class="form-control" 
@@ -29,22 +32,19 @@
                <!-- Password -->
                <div class="form-group">                                  
                   <label class="label" for="passwordInput">Password</label>                                   
-                    <span class="validation-alert alert-text" *ngIf="password.errors?.required">
-                  is required
-               </span>
-               <span class="validation-alert alert-text label" *ngIf="password.errors?.minlength">
-                    must be greater than {{passwordMinLength-1}} 
-               </span>
-               <span class="validation-alert alert-text label" *ngIf="password.errors?.maxlength">
-                    must be less than {{passwordMaxLength-1}}
-               </span>                                                    
-             
+                    <span class="validation-alert alert-text"  *ngIf="password.dirty ||password.touched">
+                      <div *ngIf="password.errors?.required">is required</div>
+                      <div *ngIf="password.errors?.minlength">must be greater than {{password.errors.minlength.requiredLenght}} </div>
+                      <div *ngIf="password.errors?.maxlength">must be less than {{password.errors.maxlength.requiredLenght}}</div>                       
+                    </span>
+
                <input [formControl]="password" 
                       type="password" 
                       class="form-control" 
                       placeholder="Password"
                       id="passwordInput" 
-                      ngbAutofocus                 
+                      ngbAutofocus         
+                      ngModel        
                       #passwordInput>
              </div>
               <!--End Password -->
