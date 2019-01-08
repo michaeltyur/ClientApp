@@ -8,6 +8,10 @@
     color: rgb(7, 6, 88);
     height: 50px;
 }
-.list-group-item{
+.user-data-row{
     cursor: pointer;
+    font-family: Roman;
+    font-style: italic;
+    font-weight: bold;
 }
+

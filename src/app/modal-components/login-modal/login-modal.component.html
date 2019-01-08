@@ -10,12 +10,16 @@
   
         <!-- Email Address -->
           <div class="form-group">
-           <label class="label" for="emailInput">Email address</label>
-           <span class="validation-alert alert-text label"  *ngIf="email.dirty ||email.touched">
+            <label class="label" 
+                   for="emailInput">
+                    Email address
+            </label>
+           <span class="validation-alert alert-text label"  
+                 *ngIf="email.dirty ||email.touched">
                <div *ngIf="email.errors?.required">
                   is required
                </div>
-               <div *ngIf="email.errors?.valid">
+               <div *ngIf="email.errors?.email">
                   is not valid
                </div>             
           </span>
@@ -32,10 +36,10 @@
                <!-- Password -->
                <div class="form-group">                                  
                   <label class="label" for="passwordInput">Password</label>                                   
-                    <span class="validation-alert alert-text"  *ngIf="password.dirty ||password.touched">
+                    <span class="validation-alert alert-text label"  *ngIf="password.dirty ||password.touched">
                       <div *ngIf="password.errors?.required">is required</div>
-                      <div *ngIf="password.errors?.minlength">must be greater than {{password.errors.minlength.requiredLenght}} </div>
-                      <div *ngIf="password.errors?.maxlength">must be less than {{password.errors.maxlength.requiredLenght}}</div>                       
+                      <div *ngIf="password.errors?.minlength">must be greater than {{password.errors.minlength.requiredLength}} </div>
+                      <div *ngIf="password.errors?.maxlength">must be less than {{password.errors.maxlength.requiredLength}}</div>                       
                     </span>
 
                <input [formControl]="password" 
@@ -43,14 +47,13 @@
                       class="form-control" 
                       placeholder="Password"
                       id="passwordInput" 
-                      ngbAutofocus         
-                      ngModel        
+                      ngbAutofocus                            
                       #passwordInput>
              </div>
               <!--End Password -->
        <button type="submit" 
                class="btn btn-primary btn-block form-button"
-              appButtonHover
+               appButtonHover
                (click)="login()"
                [disabled]="userForm.invalid">Login</button>
          

@@ -6,9 +6,9 @@
           (click)="activeModal.close('Close click')">X</button>
   <div class="row justify-content-center">
        <form [formGroup]="userForm">
-        <h4 class="pb-2 form-title text-center" >
-          <span class="label" *ngIf="client.email===''">Add New Client</span>
-          <span class="label" *ngIf="client.email!==''">Update Client</span>
+        <h4 class="pb-2 form-title text-center label" >
+          <span  *ngIf="client.email===''">Add New Client</span>
+          <span  *ngIf="client.email!==''">Update Client</span>
         </h4>
         <!-- First Name -->
         <div class="form-group">
@@ -18,10 +18,10 @@
               is required
             </div>
             <div *ngIf="firstName.errors?.minlength">
-              must be greater than {{nameMinLength-1}}
+              must be greater than {{firstName.errors.minlength.requiredLength-1}}}
             </div>
             <div *ngIf="firstName.errors?.maxlength">
-              must be less than {{nameMaxLength-1}}
+              must be less than {{firstName.errors.maxlength.requiredLength-1}}
             </div>
           </span>
           
@@ -45,10 +45,10 @@
                  is required
               </div>
               <div *ngIf="lastName.errors?.minlength">
-                 must be greater than {{nameMinLength-1}}
+                 must be greater than {{lastName.errors.minlength.requiredLength}}
               </div>
               <div *ngIf="lastName.errors?.maxlength">
-                  must be less than {{nameMaxLength-1}}
+                  must be less than {{lastName.errors.maxlength.requiredLength}}
               </div>
             </span>
            
@@ -65,7 +65,8 @@
         <div class="form-group">
           <label class="label" for="phoneInput">Phone Number</label>
 
-          <span class="validation-alert alert-text label" *ngIf="phone.dirty ||phone.touched">
+          <span class="validation-alert alert-text label" 
+                *ngIf="phone.dirty ||phone.touched">
             <div *ngIf="phone.errors?.required">
                 is required
             </div>
@@ -95,10 +96,11 @@
                             aria-expanded="false">{{selectedPrefix}}</button>
                     <div class="dropdown-menu">
                       <a class="dropdown-item" 
-                      dropdownMenuItemHover
-                         *ngFor="let prefix of phonePrefixs" (click)="onSelectPrefix(prefix)">
+                         dropdownMenuItemHover
+                         *ngFor="let prefix of phonePrefixs" 
+                         (click)="onSelectPrefix(prefix)">
                           {{prefix}}
-                    </a>
+                      </a>
                     </div>
                   </div>
 
@@ -112,11 +114,12 @@
                 </div>
       </div>
       <!--End Phone Number -->
-
       <!-- Email Address -->
         <div class="form-group">
-         <label class="label" for="emailInput">Email address</label>
-         <span class="validation-alert alert-text label" *ngIf="email.dirty ||email.touched">
+         <label class="label" 
+                for="emailInput">Email address</label>
+         <span class="validation-alert alert-text label" 
+               *ngIf="email.dirty ||email.touched">
            <div *ngIf="email.errors?.required">
              is required
            </div>
@@ -156,25 +159,21 @@
                      *ngIf="client.email===''"
                      [disabled]="userForm.invalid">Add</button>
               
-       <div class="btn-group container-fluid mt-3 p-0" 
-            role="group" 
-            aria-label="Basic example"
-            *ngIf="client.email!==''">
-          <button type="button" 
-                  class="btn btn-success col btn-lg" 
-                  appButtonHover
-                  (click)="updateClient()">Update</button>
-          <button type="button" 
-                 class="btn btn-danger col btn-lg" 
-                 appButtonHover
-                 (click)="deleteClient()">Delete</button>
-      </div>
-                              
-             
-          </div>
+          <div class="btn-group container-fluid mt-3 p-0" 
+               role="group" 
+               aria-label="Basic example"
+               *ngIf="client.email!==''">
+            <button type="button" 
+                    class="btn btn-success col btn-lg" 
+                    appButtonHover
+                    (click)="updateClient()">Update</button>
+            <button type="button" 
+                    class="btn btn-danger col btn-lg" 
+                    appButtonHover
+                    (click)="deleteClient()">Delete</button>
+          </div>                                     
         </div>
-        
-      </form>
-
+      </div>       
+    </form>
   </div>  
 </div>

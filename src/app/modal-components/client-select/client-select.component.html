@@ -2,7 +2,11 @@
     <button type="button" 
     class="btn btn-danger close-modal-button"
     (click)="activeModal.close('Close click')">X</button>
-  <h4 class="pb-2 form-title text-center">Please select client</h4>
+  <h4 class="pb-2 form-title text-center">
+    <span class="label">
+      Please select client
+    </span>
+  </h4>
 
       <div class="btn-group-vertical container-fluid">
     <button *ngFor="let client of clients"
