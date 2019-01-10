@@ -34,28 +34,21 @@
         appHover
         (click)="onSelectClient(user)">
       <div class="row" >
-        <div class="col">
-          <p>{{user.firstName | capitalizeFirstLetter}}</p>
+        <div class="col name-col align-middle">
+            {{user.firstName | capitalizeFirstLetter}}
         </div>
-        <div class="col">
-          <p>
+        <div class="col name-col align-middle">
             {{user.lastName | capitalizeFirstLetter}}
-          </p>
         </div>
-        <div class="col">
-          <p>
+        <div class="col align-middle">
              {{user.email}}
-          </p>
         </div>
-        <div class="col">
-          <p>
+        <div class="col align-middle">
              {{user.admin}}
-          </p>
         </div>
-        <div class="col">
-            <p>
+        <div class="col align-middle">
               {{user.phone}}
-            </p>
+
         </div>
       </div>
     </li>

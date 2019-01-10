@@ -119,7 +119,7 @@
          <label class="label" 
                 for="emailInput">Email address</label>
          <span class="validation-alert alert-text label" 
-               *ngIf="email.dirty ||email.touched">
+               *ngIf="email.invalid ||email.touched">
            <div *ngIf="email.errors?.required">
              is required
            </div>

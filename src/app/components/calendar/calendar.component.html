@@ -116,7 +116,7 @@
       <div class="clearfix"></div>
     </h3>
        
-      <ul class="list-group" *ngIf="events.length">
+      <!-- <ul class="list-group" *ngIf="events.length">
         <li class="list-group-item events-panel-labels">
           <div class="row">
             <div class="col">
@@ -140,25 +140,25 @@
           <div class="row">
             <div class="col">
 
-              <button
-              class="btn btn-info"
-              (click)="showDialog()"
-              (click)="openModal('addservice')">
-              Add Service
-            </button>
+              <div class="service-name">
+                {{event.services | servicesArrayToTitle}}
+              </div>
+
+              <button class="btn btn-info"
+                     (click)="openModal('addservice',event)">
+                       Add
+              </button>
             </div>
             <div class="col">
-           <button
-           class="btn btn-primary"
-           (click)="openModal('addclient')">
-            Add Client
-         </button>
+           <button class="btn btn-primary"
+                  (click)="openModal('addclient')">
+                    Add
+           </button>
          </div>
             <div class="col">
-                <input
-              type="color"
-              [(ngModel)]="event.color.primary"
-              (change)="refresh.next()">
+                <input type="color"
+                     [(ngModel)]="event.color.primary"
+                      (change)="refresh.next()">
             </div>
 
             <div class="col">
@@ -184,7 +184,76 @@
             </div>
           </div>
         </li>
-      </ul>  
+      </ul>   -->
+
+     <!-- Events Table -->
+      <table class="table" *ngIf="events.length">
+        <thead>
+          <tr class="events-panel-labels">
+            <th scope="col">#</th>
+            <th scope="col">Client Name</th>
+            <th scope="col">Service Type</th>
+            <th scope="col">Primary color</th>
+            <th scope="col">Starts at</th>
+            <th scope="col">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of events; let index = index">
+            <th class="serial-number align-middle" scope="row">{{index+1}}</th>
+            <!--Client Name -->
+            <td class="client-name align-middle">
+              {{event.client | fullNamePipe | capitalizeFirstLetter}}
+              <button class="btn btn-primary float-right"
+                     (click)="openModal('addclient', event)">
+                        Add
+              </button>
+            </td>
+            <!-- Service Name -->
+            <td class="service-name">
+              <div class="row">
+                <div class="col-8">
+                  <div class="service-name-text" *ngFor="let service of event.services">
+                    {{service.serviceType}}
+                  </div>
+                </div>
+              <div class="col align-middle">
+                   <button class="btn btn-info"
+                         (click)="openModal('addservice',event)">
+                         Add
+                  </button>                
+              </div>
+                
+              </div>
+          
+            </td>
+            <td class="event-color align-middle">
+                <input type="color"
+                     [(ngModel)]="event.color.primary"
+                      (change)="refresh.next()">
+            </td>
+            <td class="date-picker align-middle">
+                <input class="form-control"
+                       type="text"
+                       mwlFlatpickr
+                       [altInput]="true"
+                       [convertModelValue]="true"
+                       [enableTime]="true"
+                       [(ngModel)]="event.start"
+                       (ngModelChange)="refresh.next()"
+                       dateFormat="Y-m-dTH:i"
+                       altFormat="F j, Y H:i"
+                       placeholder="Not set">
+            </td>
+            <td class="delete-button align-middle">
+                <button class="btn btn-danger"
+                       (click)="events.splice(index, 1); refresh.next()">
+                         Delete
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 </div> 
   </div>
 </div>

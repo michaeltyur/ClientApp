@@ -35,6 +35,8 @@ import { LoginModalComponent } from './modal-components/login-modal/login-modal.
 import { ConfirmationComponent } from './modal-components/confirmation/confirmation.component';
 import { TitlePipe } from './pipes/title.pipe';
 import { HoverDirective } from './directives/hover.directive';
+import { ServicesTitlePipe } from './pipes/services-title.pipe';
+import { FullNamePipe } from './pipes/fullname.pipe';
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import { HoverDirective } from './directives/hover.directive';
     LoginModalComponent,
     ConfirmationComponent,
     TitlePipe,
+    ServicesTitlePipe,
+    FullNamePipe,
     HoverDirective
   ],
   imports: [

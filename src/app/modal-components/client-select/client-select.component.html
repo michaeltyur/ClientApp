@@ -12,10 +12,10 @@
     <button *ngFor="let client of clients"
             type="button" 
             class="btn btn-outline-info btn-lg btn-block select-button"
-            (click)="onSelectNailService(service)"
+            (click)="onSelectClient(client)"
             data-toggle="button"><h2>
-              <span>{{client.firstName}}</span>
-              <span class="ml-2" *ngIf="client.lastName">{{client.lastName}}</span>
+              <span>{{client.firstName | capitalizeFirstLetter}}</span>
+              <span class="ml-2" *ngIf="client.lastName">{{client.lastName | capitalizeFirstLetter}}</span>
             </h2>
             </button>
   </div>

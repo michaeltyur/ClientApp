@@ -19,13 +19,4 @@ export class NailserviceService {
    getNailServices():NailWork[]{
      return this.nailservices;
    }
-   onSelectedServices(nailService:NailWork[])
-   {
-     if (nailService) {
-      this.selectedService=nailService;
-     }
-   }
-   getSelectedNailServices():NailWork[]{
-     return this.selectedService;
-   }
 }

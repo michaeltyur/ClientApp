@@ -12,6 +12,9 @@
     cursor: pointer;
     font-family: Roman;
     font-style: italic;
+    font-size: 1.2rem;
+}
+.name-col{
     font-weight: bold;
 }
 

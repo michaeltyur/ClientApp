@@ -4,7 +4,8 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   startOfDay,
@@ -25,10 +26,11 @@ import {
 } from 'angular-calendar';
 import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ClientServicesModalComponent } from 'src/app/modal-components/client-services-modal/client-services-modal.component';
 import { ClientSelectComponent } from 'src/app/modal-components/client-select/client-select.component';
+import { SelectionService } from 'src/app/services/selection.service';
+import { NailWork } from 'src/app/models/client-service';
 
 const colors: any = {
   red: {
@@ -79,14 +81,14 @@ export class CalendarComponent {
   activeDayIsOpen: boolean ;
 
   constructor(private modalService: NgbModal,
-              private authService:AuthenticationService) {
+              private authService:AuthenticationService,
+              private selectionService:SelectionService,
+              private changeDetectorRefs: ChangeDetectorRef) {
     this.activeDayIsOpen=false;
     this.currentUser=authService.getCurrentUser();
     authService.currentUserEmitter$.subscribe(res=>this.currentUser=res);
   }
-  showDialog() {
-    this.display = true;
-  }
+
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
@@ -120,6 +122,8 @@ export class CalendarComponent {
   addEvent(): void {
     this.events.push({
       title: '',
+      client:undefined,
+      services:[],
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
@@ -131,14 +135,29 @@ export class CalendarComponent {
     });
     this.refresh.next();
   }
-  openModal(type:string){
-    if (type==='addservice') {
-      const modalRef = this.modalService.open(ClientServicesModalComponent,{centered:true});
+  openModal(type:string,calendarEvent:CalendarEvent){
+    if (calendarEvent) {
+      if (type==='addservice') {
+        const modalRef = this.modalService.open(ClientServicesModalComponent,{centered:true});
+        this.selectionService.selectedServicesForCalendarEmitter$.subscribe((res:Array<NailWork>)=>{
+          if (res && res.length>0) {
+            calendarEvent.services=res;
+            this.changeDetectorRefs.detectChanges();
+          }
+        });
+      }
+      else if(type==='addclient')
+      {
+        const modalRef = this.modalService.open(ClientSelectComponent,{centered:true});
+        this.selectionService.selectedClientForCalendarEmitter$.subscribe(res=>{
+          if (res) {
+            calendarEvent.client=res;
+            this.changeDetectorRefs.detectChanges();
+          }
+        })
+      }
     }
-    else if(type==='addclient')
-    {
-      const modalRef = this.modalService.open(ClientSelectComponent,{centered:true});
-    }
+    
     
   }
 }

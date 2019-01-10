@@ -34,7 +34,8 @@ export class ClientSelectComponent implements OnInit {
   }
   onSelectClient(client:User):void{
     if (client) {
-      this.selectionService.emitUserforCalendar(client);
+      this.selectionService.emitUserForCalendar(client);
+      this.activeModal.close('select client click');
     }
   }
   newClient():void{

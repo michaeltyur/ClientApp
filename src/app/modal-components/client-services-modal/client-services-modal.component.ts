@@ -2,6 +2,7 @@ import { Component, Input ,OnInit} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NailWork } from 'src/app/models/client-service';
 import { NailserviceService } from 'src/app/services/nailservice.service';
+import { SelectionService } from 'src/app/services/selection.service';
 
 @Component({
   selector: 'app-client-services-modal',
@@ -14,28 +15,32 @@ export class ClientServicesModalComponent implements OnInit {
   private selectedServices:NailWork[];
 
   constructor(public activeModal: NgbActiveModal,
-              private  nailServiceService:NailserviceService) {
+              private  nailServiceService:NailserviceService,
+              private selectionService:SelectionService) {
      this.selectedServices=[];
-     this.nailservices=nailServiceService.getNailServices();
-  }
-
-  ngOnInit() {
+    }
+    
+    ngOnInit() {
+      this.nailservices=this.nailServiceService.getNailServices();
   }
 
   onSelectNailService(nailService:NailWork)
   {
     if (nailService) {
-      let index=this.selectedServices.indexOf(nailService);
-      if (index==-1) {
-        this.selectedServices.push(nailService);
-      }
-      else this.selectedServices.splice(index,1);
-      
+         let index=this.selectedServices.indexOf(nailService);
+         if (index==-1) 
+         {
+           this.selectedServices.push(nailService);
+         }
+         else this.selectedServices.splice(index,1);
+   
     }
   }
+
   sendSelected(){
     if (this.selectedServices.length>0) {
-       this.nailServiceService.onSelectedServices(this.selectedServices);
+       this.selectionService.emitServicesForCalendar(this.selectedServices);
+       this.activeModal.close('select services click');
     }
    
   }
