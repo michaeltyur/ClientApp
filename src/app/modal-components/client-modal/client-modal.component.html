@@ -13,7 +13,7 @@
         <!-- First Name -->
         <div class="form-group">
           <label class="label" for="firstNameInput">First Name</label>
-          <span class="validation-alert alert-text label" *ngIf="firstName.dirty ||firstName.touched">
+          <span class="validation-alert alert-text label" *ngIf="firstName.invalid ||firstName.touched">
             <div  *ngIf="firstName.errors?.required">
               is required
             </div>
@@ -40,7 +40,7 @@
         <div class="form-group">
             <label class="label" for="lastNameInput">Last Name</label>
 
-            <span class="validation-alert alert-text label" *ngIf="lastName.dirty ||lastName.touched">
+            <span class="validation-alert alert-text label" *ngIf="lastName.invalid ||lastName.touched">
               <div *ngIf="lastName.errors?.required">
                  is required
               </div>

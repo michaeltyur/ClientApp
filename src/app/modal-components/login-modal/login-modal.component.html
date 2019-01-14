@@ -1,4 +1,3 @@
-<message></message>
 <div class="container">
     <button type="button" 
             class="btn btn-danger close-modal-button"
@@ -12,8 +11,11 @@
           <div class="form-group">
             <label class="label" 
                    for="emailInput">
-                    Email address
+                    Email
             </label>
+            <div class="validation-alert alert-text label" *ngIf="userForm.errors?.invalidLogin">
+             email or password is incorrect
+           </div>         
            <span class="validation-alert alert-text label"  
                  *ngIf="email.invalid ||email.touched">
                <div *ngIf="email.errors?.required">
@@ -21,7 +23,7 @@
                </div>
                <div *ngIf="email.errors?.email">
                   is not valid
-               </div>             
+               </div>     
           </span>
 
           <input [formControl]="email"
@@ -35,7 +37,10 @@
 
                <!-- Password -->
                <div class="form-group">                                  
-                  <label class="label" for="passwordInput">Password</label>                                   
+                  <label class="label" for="passwordInput">Password</label>       
+                  <div class="validation-alert alert-text label" *ngIf="userForm.errors?.invalidLogin">
+                      email or password is incorrect
+                    </div>                             
                     <span class="validation-alert alert-text label"  *ngIf="password.invalid ||password.touched">
                       <div *ngIf="password.errors?.required">is required</div>
                       <div *ngIf="password.errors?.minlength">must be greater than {{password.errors.minlength.requiredLength}} </div>

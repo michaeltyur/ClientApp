@@ -49,6 +49,9 @@ export class LoginModalComponent implements OnInit {
       {
         if(res)
           this.activeModal.close('Close click');          
+          else{
+            this.userForm.setErrors({invalidLogin:true});
+          }
       })
 
     }
