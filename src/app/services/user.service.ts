@@ -59,14 +59,11 @@ export class UserService {
       return this.getUser(user.email).then(res=>{
         if(!res)
         {
-          //user.admin=false;
-         // const userForDb=<User>user;
           return this.usersCollectionRef.doc(user.email).set(user)
            .then((complit)=>
            {
              this.msgService.sendMessage('alert-success',`user ${user.firstName} is added successfully`);
              return true;
-             //this.router.navigate(['home']);
             })
             .catch(err=>{
               this.msgService.sendMessage("alert-warning","an error has occurred ");
