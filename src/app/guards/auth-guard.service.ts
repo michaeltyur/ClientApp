@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService {
+export class AuthGuard {
 
   constructor(private authService: AuthenticationService, 
               private router: Router) { }

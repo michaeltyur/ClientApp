@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardService } from './guards/auth-guard.service';
-import { AdminGuardService } from './guards/admin-guard.service';
+import { AuthGuard } from './guards/auth-guard.service';
+import { AdminGuard } from './guards/admin-guard.service';
 
 import { HomeComponent } from './components/home/home.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
@@ -11,9 +11,9 @@ import { UsersComponent } from './admin-components/users/users.component';
 const routes: Routes = [
   { path: '',  redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuardService] },
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
   { path: 'gallery', component: GalleryComponent },
-  { path: 'users',  component: UsersComponent,canActivate: [AdminGuardService] },
+  { path: 'users',  component: UsersComponent,canActivate: [AdminGuard] },
   { path: '**', component: HomeComponent}
 ];
 
