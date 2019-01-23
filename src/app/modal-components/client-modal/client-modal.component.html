@@ -40,7 +40,8 @@
         <div class="form-group">
             <label class="label" for="lastNameInput">Last Name</label>
 
-            <span class="validation-alert alert-text label" *ngIf="lastName.invalid ||lastName.touched">
+            <span class="validation-alert alert-text label" 
+                 *ngIf="lastName.invalid ||lastName.touched">
               <div *ngIf="lastName.errors?.required">
                  is required
               </div>
@@ -63,10 +64,11 @@
 
         <!-- Phone Number -->
         <div class="form-group">
-          <label class="label" for="phoneInput">Phone Number</label>
+          <label class="label" 
+                 for="phoneInput">Phone Number</label>
 
           <span class="validation-alert alert-text label" 
-                *ngIf="phone.dirty ||phone.touched">
+               *ngIf="phone.dirty ||phone.touched">
             <div *ngIf="phone.errors?.required">
                 is required
             </div>

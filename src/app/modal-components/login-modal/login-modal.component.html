@@ -13,18 +13,19 @@
                    for="emailInput">
                     Email
             </label>
-            <div class="validation-alert alert-text label" *ngIf="userForm.errors?.invalidLogin">
+            <div class="validation-alert alert-text label" 
+                *ngIf="userForm.errors?.invalidLogin">
              email or password is incorrect
            </div>         
-           <span class="validation-alert alert-text label"  
-                 *ngIf="email.invalid ||email.touched">
+           <div class="validation-alert alert-text label"  
+                 *ngIf="email.invalid && email.touched">
                <div *ngIf="email.errors?.required">
                   is required
                </div>
                <div *ngIf="email.errors?.email">
                   is not valid
                </div>     
-          </span>
+              </div>
 
           <input [formControl]="email"
                  type="email" 
@@ -41,24 +42,24 @@
                   <div class="validation-alert alert-text label" *ngIf="userForm.errors?.invalidLogin">
                       email or password is incorrect
                     </div>                             
-                    <span class="validation-alert alert-text label"  *ngIf="password.invalid ||password.touched">
-                      <div *ngIf="password.errors?.required">is required</div>
-                      <div *ngIf="password.errors?.minlength">must be greater than {{password.errors.minlength.requiredLength}} </div>
-                      <div *ngIf="password.errors?.maxlength">must be less than {{password.errors.maxlength.requiredLength}}</div>                       
-                    </span>
+                  <div class="validation-alert alert-text label"  *ngIf="password.invalid && password.touched">
+                    <div *ngIf="password.errors?.required">is required</div>
+                    <div *ngIf="password.errors?.minlength">must be greater than {{password.errors.minlength.requiredLength}} </div>
+                    <div *ngIf="password.errors?.maxlength">must be less than {{password.errors.maxlength.requiredLength}}</div>                       
+                  </div>
 
                <input [formControl]="password" 
                       type="password" 
                       class="form-control" 
                       placeholder="Password"
-                      id="passwordInput" 
-                      ngbAutofocus                            
+                      id="passwordInput"                                              
                       #passwordInput>
              </div>
               <!--End Password -->
        <button type="submit" 
                class="btn btn-primary btn-block form-button"
                appButtonHover
+               ngbAutofocus
                (click)="login()"
                [disabled]="userForm.invalid">Login</button>
          
