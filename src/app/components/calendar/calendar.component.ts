@@ -24,7 +24,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
-import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ClientServicesModalComponent } from 'src/app/modal-components/client-services-modal/client-services-modal.component';
@@ -55,11 +55,11 @@ const colors: any = {
 })
 export class CalendarComponent {
 
-  currentUser:User;
+  currentUser: User;
 
   @ViewChild('modalContent')
   modalContent: TemplateRef<any>;
-  display: boolean = false;
+  display = false;
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -71,7 +71,7 @@ export class CalendarComponent {
     action: string;
     event: CalendarEvent;
   };
- 
+
 
   actions: CalendarEventAction[] = [];
 
@@ -83,12 +83,12 @@ export class CalendarComponent {
   activeDayIsOpen: boolean ;
 
   constructor(private modalService: NgbModal,
-              private authService:AuthenticationService,
-              private selectionService:SelectionService,
+              private authService: AuthenticationService,
+              private selectionService: SelectionService,
               private changeDetectorRefs: ChangeDetectorRef) {
-    this.activeDayIsOpen=false;
-    this.currentUser=authService.getCurrentUser();
-    authService.currentUserEmitter$.subscribe(res=>this.currentUser=res);
+    this.activeDayIsOpen = false;
+    this.currentUser = authService.getCurrentUser();
+    authService.currentUserEmitter$.subscribe(res => this.currentUser = res);
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -118,14 +118,14 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    this.modalService.open(this.modalContent, { centered:true,size: 'lg' });
+    this.modalService.open(this.modalContent, { centered: true, size: 'lg' });
   }
 
   addEvent(): void {
     this.events.push({
       title: '',
-      client:undefined,
-      services:[],
+      client: undefined,
+      services: [],
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
@@ -137,29 +137,27 @@ export class CalendarComponent {
     });
     this.refresh.next();
   }
-  openModal(type:string,calendarEvent:CalendarEvent){
+  openModal(type: string, calendarEvent: CalendarEvent) {
     if (calendarEvent) {
-      if (type==='addservice') {
-        const modalRef = this.modalService.open(ClientServicesModalComponent,{centered:true});
-        this.selectionService.selectedServicesForCalendarEmitter$.subscribe((res:Array<NailWork>)=>{
-          if (res && res.length>0) {
-            calendarEvent.services=res;
+      if (type === 'addservice') {
+        const modalRef = this.modalService.open(ClientServicesModalComponent, {centered: true});
+        this.selectionService.selectedServicesForCalendarEmitter$.subscribe((res: Array<NailWork>) => {
+          if (res && res.length > 0) {
+            calendarEvent.services = res;
+            this.changeDetectorRefs.detectChanges();
+          }
+        });
+      } else if (type === 'addclient') {
+        const modalRef = this.modalService.open(ClientSelectComponent, {centered: true});
+        this.selectionService.selectedClientForCalendarEmitter$.subscribe(res => {
+          if (res) {
+            calendarEvent.client = res;
             this.changeDetectorRefs.detectChanges();
           }
         });
       }
-      else if(type==='addclient')
-      {
-        const modalRef = this.modalService.open(ClientSelectComponent,{centered:true});
-        this.selectionService.selectedClientForCalendarEmitter$.subscribe(res=>{
-          if (res) {
-            calendarEvent.client=res;
-            this.changeDetectorRefs.detectChanges();
-          }
-        })
-      }
     }
-    
-    
+
+
   }
 }

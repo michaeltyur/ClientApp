@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class AuthGuard {
 
-  constructor(private authService: AuthenticationService, 
+  constructor(private authService: AuthenticationService,
               private router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.getCurrentUser()) {
         return true;
     }
-            
+
     this.router.navigate(['/login']);
     return false;
     }

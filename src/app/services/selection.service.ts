@@ -11,38 +11,37 @@ import { NailWork } from '../models/client-service';
 })
 export class SelectionService {
 
-  public selectedClientForCalendarEmitter$:EventEmitter<User>;
-  public selectedServicesForCalendarEmitter$:EventEmitter<NailWork[]>;
+  public selectedClientForCalendarEmitter$: EventEmitter<User>;
+  public selectedServicesForCalendarEmitter$: EventEmitter<NailWork[]>;
 
-  private selectedClientForUpdate:User;
-  
+  private selectedClientForUpdate: User;
+
   constructor(private router: Router,
-              private msgService:MessageService) 
-{ 
+              private msgService: MessageService) {
 
-    this.selectedClientForCalendarEmitter$=new EventEmitter<User>();
-    this.selectedServicesForCalendarEmitter$=new EventEmitter<NailWork[]>();
+    this.selectedClientForCalendarEmitter$ = new EventEmitter<User>();
+    this.selectedServicesForCalendarEmitter$ = new EventEmitter<NailWork[]>();
  }
 
-  onSelectedClientForUpdate(client:User){
+  onSelectedClientForUpdate(client: User) {
     if (client) {
-     this.selectedClientForUpdate=client;
+     this.selectedClientForUpdate = client;
     }
  }
 
- getSelectedClientForUpdate():User{
+ getSelectedClientForUpdate(): User {
     return this.selectedClientForUpdate;
  }
 
- emitUserForCalendar(client:User){
+ emitUserForCalendar(client: User) {
    if (client) {
-     this.selectedClientForCalendarEmitter$.emit(client)
+     this.selectedClientForCalendarEmitter$.emit(client);
    }
  }
 
- emitServicesForCalendar(services:NailWork[]){
+ emitServicesForCalendar(services: NailWork[]) {
   if (services) {
-    this.selectedServicesForCalendarEmitter$.emit(services)
+    this.selectedServicesForCalendarEmitter$.emit(services);
   }
 }
 

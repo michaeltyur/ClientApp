@@ -7,15 +7,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminGuard {
-  constructor(private authService: AuthenticationService, 
+  constructor(private authService: AuthenticationService,
               private router: Router) { }
 
 canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 if (this.authService.isAdmin()) {
 return true;
 }
-  
-  //this.router.navigate(['/home']);
+
+  // this.router.navigate(['/home']);
 return false;
 }
 }

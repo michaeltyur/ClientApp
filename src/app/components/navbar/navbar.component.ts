@@ -14,26 +14,26 @@ import { LoginModalComponent } from 'src/app/modal-components/login-modal/login-
 })
 export class NavbarComponent implements OnInit {
 
-  currentUser:User;
-  
+  currentUser: User;
+
   constructor(private authService: AuthenticationService,
               private modalService: NgbModal) {
-    authService.currentUserEmitter$.subscribe(res=>this.currentUser=res);
+    authService.currentUserEmitter$.subscribe(res => this.currentUser = res);
    }
 
   ngOnInit() {
   }
-  logout():void{
+  logout(): void {
     this.authService.logout();
   }
-  goToNewUser():void{
+  goToNewUser(): void {
     if (this.currentUser.admin) {
-      const modalRef = this.modalService.open(ClientModalComponent,{centered:true});
-      modalRef.componentInstance.client={firstName:'',lastName:'',email:'',phone:'',admin:false};
+      const modalRef = this.modalService.open(ClientModalComponent, {centered: true});
+      modalRef.componentInstance.client = {firstName: '', lastName: '', email: '', phone: '', admin: false};
     }
 
   }
-  goToLogin():void{
-    const modalRef = this.modalService.open(LoginModalComponent,{centered:true});
+  goToLogin(): void {
+    const modalRef = this.modalService.open(LoginModalComponent, {centered: true});
   }
 }

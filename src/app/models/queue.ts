@@ -1,7 +1,7 @@
-import { Time } from "@angular/common";
+import { Time } from '@angular/common';
 
-export class Queue{
-    
-    time:Time;
-    description:string;
+export class Queue {
+
+    time: Time;
+    description: string;
 }

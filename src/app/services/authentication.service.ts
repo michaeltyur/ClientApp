@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { AngularFirestore,AngularFirestoreCollection,AngularFirestoreDocument  } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument  } from 'angularfire2/firestore';
 import { Observable, from } from 'rxjs';
 import { map, filter, catchError, mergeMap } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -12,64 +12,57 @@ import { UserService } from './user.service';
 })
 export class AuthenticationService {
 
-  userListEmitter$:EventEmitter<User[]>;
-  currentUserEmitter$:EventEmitter<User>;
-  currentUser:User;
+  userListEmitter$: EventEmitter<User[]>;
+  currentUserEmitter$: EventEmitter<User>;
+  currentUser: User;
 
   private userDoc: AngularFirestoreDocument<User>;
   user: Observable<User>;
 
-  constructor(private afs: AngularFirestore, 
+  constructor(private afs: AngularFirestore,
               private router: Router,
               private msgService: MessageService,
-              private userService:UserService) {
+              private userService: UserService) {
 
-      this.userListEmitter$=new EventEmitter();
-      this.currentUserEmitter$=new EventEmitter();
+      this.userListEmitter$ = new EventEmitter();
+      this.currentUserEmitter$ = new EventEmitter();
    }
-   isAdmin():boolean{
+   isAdmin(): boolean {
      return this.currentUser && this.currentUser.admin ? true : false;
 
    }
-  getCurrentUser():User{
+  getCurrentUser(): User {
    return this.currentUser;
   }
-   login(email:string,password:string):Promise<any>{
+   login(email: string, password: string): Promise<any> {
 
-   return this.userService.getUser(email).then(user=>
-      {      
+   return this.userService.getUser(email).then(user => {
         if (user) {
-          if (user.password==password) 
-          {
-            this.msgService.sendMessage("alert-success","login is successful");
-            this.currentUser=user;
+          if (user.password == password) {
+            this.msgService.sendMessage('alert-success', 'login is successful');
+            this.currentUser = user;
             this.currentUserEmitter$.emit(this.currentUser);
             this.router.navigate(['home']);
             return true;
-          }
-          else
-          {
-            this.msgService.sendMessage("alert-warning","password is incorrect");
+          } else {
+            this.msgService.sendMessage('alert-warning', 'password is incorrect');
             return false;
           }
-        }
-        else 
-        {
-          this.msgService.sendMessage("alert-warning",'user not found');
+        } else {
+          this.msgService.sendMessage('alert-warning', 'user not found');
           return false;
         }
       });
    }
 
-   logout():void{
-     this.msgService.sendMessage("alert-warning",`user ${this.currentUser.firstName} is exited`);
-     this.currentUser=undefined;
+   logout(): void {
+     this.msgService.sendMessage('alert-warning', `user ${this.currentUser.firstName} is exited`);
+     this.currentUser = undefined;
      this.currentUserEmitter$.emit(this.currentUser);
      this.router.navigate(['home']);
    }
 
-   private handleError(error:Response)
-   {
-     //error.status
+   private handleError(error: Response) {
+     // error.status
    }
 }

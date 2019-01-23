@@ -14,50 +14,48 @@ import { ClientModalComponent } from 'src/app/modal-components/client-modal/clie
 })
 export class UsersComponent implements OnInit {
 
-  users$:Observable<User[]>;
-  users:User[];
-  constructor(private userService:UserService,
-              private selectedService:SelectionService,
-              private modalService: NgbModal) { 
-    this.users=[];
-    
+  users$: Observable<User[]>;
+  users: User[];
+  constructor(private userService: UserService,
+              private selectedService: SelectionService,
+              private modalService: NgbModal) {
+    this.users = [];
+
   }
-  
+
   ngOnInit() {
-    this.users$=this.userService.getListOfUsers();
-     this.userService.getListOfUsers().subscribe(querySnapshot=>
-    {
-           querySnapshot.forEach(doc=>
-            {
+    this.users$ = this.userService.getListOfUsers();
+     this.userService.getListOfUsers().subscribe(querySnapshot => {
+           querySnapshot.forEach(doc => {
               this.users.push(doc.data());
-            })
+            });
     });
   }
-  onSelectClient(client:User){
+  onSelectClient(client: User) {
     if (client) {
-      const modalRef = this.modalService.open(ClientModalComponent,{centered:true});
-      modalRef.componentInstance.client=client;
-      //this.selectedService.onSelectedClientForUpdate(client);
+      const modalRef = this.modalService.open(ClientModalComponent, {centered: true});
+      modalRef.componentInstance.client = client;
+      // this.selectedService.onSelectedClientForUpdate(client);
     }
   }
-  addClientLocaly(client:User):void{
+  addClientLocaly(client: User): void {
      if (client) {
       this.users.push(client);
      }
   }
-  updateClientLocaly(client:User):void{
+  updateClientLocaly(client: User): void {
     if (client) {
-      let index=this.users.indexOf(client);
-     if (index>-1) {
-      this.users[index]=client;
+      const index = this.users.indexOf(client);
+     if (index > -1) {
+      this.users[index] = client;
      }
     }
  }
- deleteClientLocaly(client:User):void{
+ deleteClientLocaly(client: User): void {
   if (client) {
-    let index=this.users.indexOf(client);
-   if (index>-1) {
-    this.users.splice(index,1);
+    const index = this.users.indexOf(client);
+   if (index > -1) {
+    this.users.splice(index, 1);
    }
   }
 }

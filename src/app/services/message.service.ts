@@ -6,14 +6,14 @@ import { Alert } from '../models/alert';
 })
 export class MessageService {
 
- message:string;
- messageEmitter$:EventEmitter<Alert>;
+ message: string;
+ messageEmitter$: EventEmitter<Alert>;
 
   constructor() {
-    this.messageEmitter$=new EventEmitter();
+    this.messageEmitter$ = new EventEmitter();
    }
-   sendMessage(type:string, message:string){
-     let alert=new Alert(type,message);
+   sendMessage(type: string, message: string) {
+     const alert = new Alert(type, message);
      this.messageEmitter$.emit(alert);
    }
 }

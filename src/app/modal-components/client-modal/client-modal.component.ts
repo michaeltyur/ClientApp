@@ -1,11 +1,11 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { nameMinLength,
          nameMaxLength,
          phoneMinLength,
-         phoneMaxLength} from '../../consts/validation.consts'
-import { FormGroup,Validators,FormBuilder,FormControl } from '@angular/forms';
+         phoneMaxLength} from '../../consts/validation.consts';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ValidatePhoneAsNumber } from 'src/app/validators/phone.validator';
 import { ValidatePhoneNotExist } from 'src/app/validators/phone-notexists.validator';
 import { SelectionService } from 'src/app/services/selection.service';
@@ -20,51 +20,50 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 })
 export class ClientModalComponent implements OnInit {
 
-  @Input() client:User;
-  userForm : FormGroup;
-  nameMinLength:number;
-  nameMaxLength:number;
-  phoneMinLength:number;
-  phoneMaxLength:number;
-  phonePrefixs:string[];
-  selectedPrefix:string;
-  mouseOvered:boolean;
+  @Input() client: User;
+  userForm: FormGroup;
+  nameMinLength: number;
+  nameMaxLength: number;
+  phoneMinLength: number;
+  phoneMaxLength: number;
+  phonePrefixs: string[];
+  selectedPrefix: string;
+  mouseOvered: boolean;
   constructor(private fb: FormBuilder,
-              private userService:UserService,
+              private userService: UserService,
               public activeModal: NgbActiveModal,
-              private selectionService:SelectionService,
+              private selectionService: SelectionService,
               private modalService: NgbModal) {
-       this.selectedPrefix='050';
+       this.selectedPrefix = '050';
 
-       this.client=selectionService.getSelectedClientForUpdate();
+       this.client = selectionService.getSelectedClientForUpdate();
        if (this.client) {
-         this.selectedPrefix=this.client.phone.substring(0, 3)
-       }
-       else this.client={firstName:'', lastName:'', email:'', phone:'', admin:false};
-   
-       this.nameMinLength=nameMinLength;
-       this.nameMaxLength=nameMaxLength;
-       this.phoneMinLength=phoneMinLength;
-       this.phoneMaxLength=phoneMaxLength;
-       this.phonePrefixs=['050','052','053','054','055','056'];
-     
+         this.selectedPrefix = this.client.phone.substring(0, 3);
+       } else { this.client = {firstName: '', lastName: '', email: '', phone: '', admin: false}; }
+
+       this.nameMinLength = nameMinLength;
+       this.nameMaxLength = nameMaxLength;
+       this.phoneMinLength = phoneMinLength;
+       this.phoneMaxLength = phoneMaxLength;
+       this.phonePrefixs = ['050', '052', '053', '054', '055', '056'];
+
                }
 
     ngOnInit() {
-    this.userForm=this.fb.group({
-      firstName:[this.client.firstName, [Validators.required,
+    this.userForm = this.fb.group({
+      firstName: [this.client.firstName, [Validators.required,
                                          Validators.minLength(this.nameMinLength),
                                          Validators.maxLength(this.nameMaxLength)]],
       lastName: [this.client.lastName, [Validators.required,
                                         Validators.minLength(this.nameMinLength),
                                         Validators.maxLength(this.nameMaxLength)]],
-      email:    [{value:this.client.email,disabled:this.client.email!==''},[Validators.required, Validators.email]],
+      email:    [{value: this.client.email, disabled: this.client.email !== ''}, [Validators.required, Validators.email]],
       phone:    [this.client.phone.substring(3), [Validators.required,
-                                                  Validators.minLength(this.phoneMinLength), 
+                                                  Validators.minLength(this.phoneMinLength),
                                                   Validators.maxLength(this.phoneMaxLength),
                                                   ValidatePhoneAsNumber ],
                                                   ValidatePhoneNotExist.createValidator(this.userService) ]  ,
-      admin:    [{value: this.client.admin, disabled: true}]      
+      admin:    [{value: this.client.admin, disabled: true}]
     });
 
   }
@@ -83,39 +82,39 @@ export class ClientModalComponent implements OnInit {
   get admin() {
     return this.userForm.get('admin');
   }
- onSelectPrefix(prefix:string):void{
+ onSelectPrefix(prefix: string): void {
    if (prefix) {
-     this.selectedPrefix=prefix;
+     this.selectedPrefix = prefix;
      this.userService.setPhonePrefix(this.selectedPrefix);
    }
-  
+
  }
-  addClient():void{
+  addClient(): void {
     if (this.userForm.valid) {
-      let user = this.userForm.value as User;
-      user.phone=this.selectedPrefix + this.phone.value;
+      const user = this.userForm.value as User;
+      user.phone = this.selectedPrefix + this.phone.value;
       this.userService.addUser(user);
       this.activeModal.close('Close click');
     }
   }
-  updateClient():void{
+  updateClient(): void {
     if (this.userForm.valid) {
-      let user = this.userForm.getRawValue();
-      user.phone=this.selectedPrefix + this.phone.value;
+      const user = this.userForm.getRawValue();
+      user.phone = this.selectedPrefix + this.phone.value;
       this.userService.updateUser(user);
       this.activeModal.close('Close click');
     }
   }
-  deleteClient():void{
+  deleteClient(): void {
     if (this.userForm.valid) {
       const modalRef = this.modalService.open(ConfirmationComponent, { centered: true });
       modalRef.componentInstance.name = this.firstName.value;
-      modalRef.result.then(result=>{
-        if (result==='Ok click') {
+      modalRef.result.then(result => {
+        if (result === 'Ok click') {
           this.userService.deleteUser(this.userForm.value);
           this.activeModal.close('Close click');
         }
-      })
+      });
     }
   }
 }
