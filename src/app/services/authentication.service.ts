@@ -67,4 +67,9 @@ export class AuthenticationService {
      this.currentUserEmitter$.emit(this.currentUser);
      this.router.navigate(['home']);
    }
+
+   private handleError(error:Response)
+   {
+     //error.status
+   }
 }

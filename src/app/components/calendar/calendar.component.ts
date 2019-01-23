@@ -66,10 +66,12 @@ export class CalendarComponent {
 
   viewDate: Date = new Date();
 
+
   modalData: {
     action: string;
     event: CalendarEvent;
   };
+ 
 
   actions: CalendarEventAction[] = [];
 

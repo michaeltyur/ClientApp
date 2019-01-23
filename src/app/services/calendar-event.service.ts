@@ -34,7 +34,7 @@ export class CalendarEventService {
             this.usersCollectionRef
             .doc(event.start.toString())
             .set(event)
-            .then(complit=>{
+            .then(complite=>{
                this.msgService.sendMessage('alert-success',`event is added successfully`);
                return true;
             })

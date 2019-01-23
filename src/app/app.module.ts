@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -79,7 +80,8 @@ import { FullNamePipe } from './pipes/fullname.pipe';
     ReactiveFormsModule,
     FormsModule ,
     NgbModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule
   ],
   entryComponents:[
     ClientServicesModalComponent,
